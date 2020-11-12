@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import { } from 'react-native';
+import React, {useEffect} from 'react';
+import {} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
 
 // IMPORT SCREENS
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import MainTabScreen from './screens/MainTabScreen';
 
-db = SQLite.openDatabase({ name: 'BDSonline.db' });
+let db = SQLite.openDatabase({name: 'BDSonline.db'});
 if (!db) {
   console.log('Could not connect to database!');
 } else {
@@ -59,38 +59,24 @@ function App() {
     });
 
     db.transaction(function (tx) {
-      tx.executeSql(
-        "SELECT * FROM user_tbl",
-        [],
-        function (tx, results) {
-          console.log(results.rows.length);
-          // for (let i = 0; i < results.rows.length; i++) {
-          //   console.log(results.rows[i]['tai_khoan']);
-          //   console.log(results.rows[i]['mat_khau']);
-          // }
-        },
-      );
+      tx.executeSql('SELECT * FROM user_tbl', [], function (tx, results) {
+        console.log(results.rows.length);
+        // for (let i = 0; i < results.rows.length; i++) {
+        //   console.log(results.rows[i]['tai_khoan']);
+        //   console.log(results.rows[i]['mat_khau']);
+        // }
+      });
     });
   });
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
-        }}
-      >
-        <Stack.Screen
-          name="SignIn"
-          component={SignInScreen}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-        />
-        <Stack.Screen
-          name="Home"
-          component={MainTabScreen}
-        />
+          headerShown: false,
+        }}>
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="Home" component={MainTabScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
