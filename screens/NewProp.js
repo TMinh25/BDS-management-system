@@ -20,74 +20,80 @@ function errorCB(err) {
 	console.log("SQL Error: " + err);
 };
 
-const NewProp = ({ navigation }) => {
-	let [taikhoan, setTaikhoan] = useState('');
-	let [matkhau, setMatkhau] = useState('');
-	let [hoten, setHoten] = useState('');
-	let [gioitinh, setGioitinh] = useState('');
-	let [tuoi, setTuoi] = useState('');
-	let [avatar, setAvatar] = useState('');
+export default function NewProp({ navigation }) {
+	let [userID, setUserID] = useState(global.currentUser);
+	let [diachi, setDiachi] = useState('');
+	let [dientich, setDientich] = useState('');
+	let [huong, setHuong] = useState('');
+	let [giathamdinh, setGiathamdinh] = useState('');
 	let [ghichu, setGhichu] = useState('');
 
-	// let checkValid = () => { return (taikhoan && matkhau && hoten && gioitinh && tuoi && avatar) };
+	let checkValid = () => { userID || diachi || dientich || giathamdinh };
 
-	let signUpNewAccount = () => {
-		// db.transaction((tx) => {
-		// 	tx.executeSql(
-		// 		'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?)',
-		// 		[],
-		// 		(tx, results) => { },
-		// 		(tx, err) => {
-		// 			errorCB(err);
-		// 		}
-		// 	);
-		// });
+	let registerNewProp = () => {
+		db.transaction((tx) => {
+			tx.executeSql(
+				'INSERT INTO bds_tbl (user_id, dia_chi, dien_tich, huong, gia_tham_dinh, ghi_chu) VALUES ( ?, ?, ?, ?, ?, ?)',
+				[userID, diachi, dientich, huong, giathamdinh, ghichu],
+				(tx, results) => {
+					if (results.rowsAffected > 0) {
+						Alert.alert(
+							'Thành công',
+							'Đăng tải thành công',
+							[
+								{
+									text: 'Đồng ý',
+									onPress: () => navigation.navigate('Home'),
+								},
+							],
+							{ cancelable: false },
+						);
+						console.log('Người đăng: ' + userID);
+						console.log(diachi, dientich, huong, giathamdinh, ghichu);
+					} else alert('Lỗi');
+				}, (tx, err) => {
+					errorCB(err);
+				}
+			);
+		});
 	};
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<ScrollView>
-				{/* <View style={{ flex: 1, backgroundColor: 'white' }}>
+				<Text>New Props</Text>
+				<View style={{ flex: 1, backgroundColor: 'white' }}>
 					<Text style={styles.pageTitle}>Thêm tài khoản</Text>
 					<MyTextInput
-						placeHolder="Tài khoản"
-						value={taikhoan}
+						placeHolder="Địa chỉ"
+						value={diachi}
 						style={styles.textInput}
 						onChangeText={(val) => {
-							setTaikhoan(val);
+							setDiachi(val);
 						}}
 					/>
 					<MyTextInput
-						placeHolder="Mật khẩu"
-						value={matkhau}
+						placeHolder="Diện tích"
+						value={dientich}
 						style={styles.textInput}
 						onChangeText={(val) => {
-							setMatkhau(val);
+							setDientich(val);
 						}}
 					/>
 					<MyTextInput
-						placeHolder="Họ tên"
-						value={hoten}
+						placeHolder="Hướng"
+						value={huong}
 						style={styles.textInput}
 						onChangeText={(val) => {
-							setHoten(val);
+							setHuong(val);
 						}}
 					/>
 					<MyTextInput
-						placeHolder="Giới tính"
-						value={gioitinh}
+						placeHolder="Giá thẩm định"
+						value={giathamdinh}
 						style={styles.textInput}
 						onChangeText={(val) => {
-							setGioitinh(val);
-						}}
-					/>
-					<MyTextInput
-						placeHolder="Tuổi"
-						value={tuoi}
-						style={styles.textInput}
-						keyboardType="numeric"
-						onChangeText={(val) => {
-							setTuoi(val);
+							setGiathamdinh(val);
 						}}
 					/>
 					<MyTextInput
@@ -99,32 +105,25 @@ const NewProp = ({ navigation }) => {
 						numberOfLines={4}
 					/>
 					<View style={{ flexDirection: 'row' }}>
-						<View style={{ flex: 1 }}></View>
-						<View style={{ flex: 4, alignItems: 'center' }}>
-							<TouchableWithoutFeedback style={styles.avatar} onPress={chooseImage} >
-								<View>
-									<Image source={(avatar !== '') ? { uri: avatar } : require("../image/chooseImage.png")} style={styles.avatar} />
-								</View>
-							</TouchableWithoutFeedback>
-						</View>
-						<View style={{ flex: 1 }}></View>
-					</View>
-					<View style={{ flexDirection: 'row' }}>
-						<View style={{ flex: 3 }}>
+						<View style={{ flex: 1 }}>
 							<MyButton
-								title="Tạo tài khoản"
-								onPress={signUpNewAccount}
+								title="Hủy"
+								onPress={() => { navigation.goBack() }}
+							/>
+						</View>
+						<View style={{ flex: 1 }}>
+							<MyButton
+								title="Xác nhận"
+								style={{ backgroundColor: '#42f563' }}
+								onPress={registerNewProp}
 							/>
 						</View>
 					</View>
-				</View> */}
-				<Text>New Props</Text>
+				</View>
 			</ScrollView>
 		</SafeAreaView>
 	);
 };
-
-export default NewProp;
 
 const styles = StyleSheet.create({
 	pageTitle: {
