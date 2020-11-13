@@ -54,7 +54,7 @@ const SignUpScreen = ({ route, navigation }) => {
 	let signUpNewAccount = () => {
 		db.transaction((tx) => {
 			tx.executeSql(
-				'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?)',
+				'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
 				[taikhoan, matkhau, 1, hoten, gioitinh, tuoi, avatar, ghichu],
 				(tx, results) => {
 					if (results.rowsAffected > 0) {
