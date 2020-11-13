@@ -9,10 +9,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 // IMPORT COMPONENTS
 
 // IMPORT SCREEN
-import ProfileScreen from '../screens/ProfileScreen';
-import SettingScreen from '../screens/SettingScreen';
-import HomeScreen from '../screens/HomeScreen';
-import NewProp from '../screens/NewProp';
+import SettingScreen from './SettingScreen';
+import HomeStackScreen from './HomeStackScreen';
+import ProfileStackScreen from './ProfileStackScreen';
 
 db = SQLite.openDatabase({ name: 'BDSonline.db' });
 if (!db) {
@@ -67,24 +66,3 @@ function MainTabScreen({ navigation }) {
 }
 
 export default MainTabScreen;
-
-
-const HomeStack = createStackNavigator();
-const DetailsStack = createStackNavigator();
-
-const HomeStackScreen = ({ navigation }) => (
-  <HomeStack.Navigator screenOptions={{ headerShown: false, }}>
-    <HomeStack.Screen name="Home" component={HomeScreen} options={{
-      header: null,
-    }} />
-    <HomeStack.Screen name="NewProp" component={NewProp} options={{
-      header: null,
-    }} />
-  </HomeStack.Navigator>
-);
-
-const ProfileStackScreen = ({ navigation }) => (
-  <DetailsStack.Navigator screenOptions={{ headerShown: false, }}>
-    <DetailsStack.Screen name="Hồ sơ" component={ProfileScreen} />
-  </DetailsStack.Navigator>
-);

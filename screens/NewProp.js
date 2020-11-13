@@ -14,17 +14,13 @@ import {
 import MyTextInput from '../components/MyTextInput';
 import MyButton from '../components/MyButton';
 import { openDatabase } from 'react-native-sqlite-storage';
-import ImagePicker from 'react-native-image-picker';
 
 var db = openDatabase({ name: 'BDSonline.db' });
 function errorCB(err) {
 	console.log("SQL Error: " + err);
 };
 
-function openCB() {
-	console.log("Database OPENED");
-};
-const NewProp = ({ route, navigation }) => {
+const NewProp = ({ navigation }) => {
 	let [taikhoan, setTaikhoan] = useState('');
 	let [matkhau, setMatkhau] = useState('');
 	let [hoten, setHoten] = useState('');
@@ -33,61 +29,25 @@ const NewProp = ({ route, navigation }) => {
 	let [avatar, setAvatar] = useState('');
 	let [ghichu, setGhichu] = useState('');
 
-	let chooseImage = () => {
-		var options = {
-			title: 'Chọn ảnh',
-			storageOptions: {
-				skipBackup: true,
-				path: 'images',
-			},
-		};
-		ImagePicker.showImagePicker(options, (response) => {
-			if (response.didCancel) {
-				console.log('Đã huỷ bỏ chọn ảnh');
-			} else if (response.error) {
-				console.log('ImagePicker Error: ', response.error);
-			} else {
-				let source = response;
-				setAvatar('data:image/;base64,' + source.data);
-			}
-		});
-	};
-
-	let checkValid = () => { return (taikhoan && matkhau && hoten && gioitinh && tuoi && avatar) };
+	// let checkValid = () => { return (taikhoan && matkhau && hoten && gioitinh && tuoi && avatar) };
 
 	let signUpNewAccount = () => {
-		db.transaction((tx) => {
-			tx.executeSql(
-				'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?)',
-				[taikhoan, matkhau, 1, hoten, gioitinh, tuoi, avatar, ghichu],
-				(tx, results) => {
-					if (results.rowsAffected > 0) {
-						Alert.alert(
-							'Thành công',
-							'Tạo tài khoản thành công',
-							[
-								{
-									text: 'Đồng ý',
-									onPress: () => navigation.navigate('SignIn'),
-								},
-							],
-							{ cancelable: false },
-						);
-						console.log('Tài khoản: ' + taikhoan + ', Mật khẩu: ' + matkhau);
-						console.log(taikhoan, matkhau, hoten, gioitinh, tuoi, ghichu);
-						Keyboard.dismiss();
-					} else alert('Lỗi');
-				}, (tx, err) => {
-					errorCB(err);
-				}
-			);
-		});
+		// db.transaction((tx) => {
+		// 	tx.executeSql(
+		// 		'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?)',
+		// 		[],
+		// 		(tx, results) => { },
+		// 		(tx, err) => {
+		// 			errorCB(err);
+		// 		}
+		// 	);
+		// });
 	};
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<ScrollView>
-				<View style={{ flex: 1, backgroundColor: 'white' }}>
+				{/* <View style={{ flex: 1, backgroundColor: 'white' }}>
 					<Text style={styles.pageTitle}>Thêm tài khoản</Text>
 					<MyTextInput
 						placeHolder="Tài khoản"
@@ -157,7 +117,8 @@ const NewProp = ({ route, navigation }) => {
 							/>
 						</View>
 					</View>
-				</View>
+				</View> */}
+				<Text>New Props</Text>
 			</ScrollView>
 		</SafeAreaView>
 	);

@@ -26,27 +26,27 @@ function SignInScreen({ navigation }) {
   var [taikhoan, setTaikhoan] = React.useState('');
   var [matkhau, setMatkhau] = React.useState('');
   function dangNhap() {
-    db.transaction(function (tx) {
-      tx.executeSql(
-        "SELECT * FROM user_tbl WHERE tai_khoan=? AND mat_khau=?",
-        [taikhoan, matkhau],
-        function (tx, results) {
-          console.log('Có tài khoản: ' + Boolean(results.rows.length));
-          if (results.rows.length === 1) {
-            console.log('Mã người dùng: ' + results.rows.item(0)['user_id']);
-            console.log('Signed In!');
-            navigation.navigate('Home');
-            // global.currentUser = results.rows.item(0)['user_id'];
-            Keyboard.dismiss();
-          } else {
-            Alert.alert('Sai tài khoản hoặc mật khẩu');
-          }
-        }, (tx, err) => {
-          console.log(err);
-        }
-      );
-    });
-    // navigation.navigate("Home");
+    // db.transaction(function (tx) {
+    //   tx.executeSql(
+    //     "SELECT * FROM user_tbl WHERE tai_khoan=? AND mat_khau=?",
+    //     [taikhoan, matkhau],
+    //     function (tx, results) {
+    //       console.log('Có tài khoản: ' + Boolean(results.rows.length));
+    //       if (results.rows.length === 1) {
+    //         console.log('Mã người dùng: ' + results.rows.item(0)['user_id']);
+    //         console.log('Signed In!');
+    //         navigation.navigate('Home');
+    //         // global.currentUser = results.rows.item(0)['user_id'];
+    //         Keyboard.dismiss();
+    //       } else {
+    //         Alert.alert('Sai tài khoản hoặc mật khẩu');
+    //       }
+    //     }, (tx, err) => {
+    //       console.log(err);
+    //     }
+    //   );
+    // });
+    navigation.navigate("Home");
   };
   return (
     <SafeAreaView>

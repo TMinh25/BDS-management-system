@@ -4,10 +4,12 @@ import { View, Text, SafeAreaView, StyleSheet, FlatList, Alert } from 'react-nat
 // IMPORT COMPONENTS
 import FlatListItem from '../components/FlatListItem';
 import FAB from '../components/FloatingActionButton';
+import { useNavigation } from '@react-navigation/native'
 
-class HomeScreen extends React.Component {
-	render() {
-		return (
+export default function Home() {
+	const navigation = useNavigation();
+	return (
+		<>
 			<SafeAreaView style={styles.container}>
 				<View>
 					<Text></Text>
@@ -15,12 +17,12 @@ class HomeScreen extends React.Component {
 					<FlatListItem item={{ dia_chi: 'Lo 1 232 12312312 3132', dien_tich: '323', huong: 'Đông Bắc', gia_tham_dinh: '30.000.000', ho_ten: 'Vũ Nguyễn Đức Khôi' }} />
 					<FlatListItem item={{ dia_chi: 'Lo 1 232 12312312 3132', dien_tich: '323', huong: 'Đông Bắc', gia_tham_dinh: '5.000.000', ho_ten: 'Lê Mạnh Đức' }} />
 				</View>
-				<FAB title="+" onPress={() => { Alert.alert('abc') }} />
+				<FAB title="+" onPress={() => { navigation.navigate("NewProp") }}
+				/>
 			</SafeAreaView>
-		);
-	}
+		</>
+	);
 }
-export default HomeScreen;
 
 const styles = StyleSheet.create({
 	container: {
@@ -29,3 +31,4 @@ const styles = StyleSheet.create({
 		height: '100%',
 	},
 })
+
