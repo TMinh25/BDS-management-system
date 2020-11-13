@@ -31,9 +31,9 @@ function SignInScreen({ navigation }) {
         "SELECT * FROM user_tbl WHERE tai_khoan=? AND mat_khau=?",
         [taikhoan, matkhau],
         function (tx, results) {
-          console.log(results.rows.length);
+          console.log('Có tài khoản: ' + Boolean(results.rows.length));
           if (results.rows.length === 1) {
-            console.log(results.rows.item(0)['user_id']);
+            console.log('Mã người dùng: ' + results.rows.item(0)['user_id']);
             console.log('Signed In!');
             navigation.navigate('Home');
             // global.currentUser = results.rows.item(0)['user_id'];

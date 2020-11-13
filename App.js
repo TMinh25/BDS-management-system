@@ -63,7 +63,7 @@ function App() {
         "SELECT * FROM user_tbl",
         [],
         function (tx, results) {
-          console.log(results.rows.length);
+          console.log('Số tài khoản: ' + results.rows.length);
           // for (let i = 0; i < results.rows.length; i++) {
           //   console.log(results.rows[i]['tai_khoan']);
           //   console.log(results.rows[i]['mat_khau']);
