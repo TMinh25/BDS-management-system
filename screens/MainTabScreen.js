@@ -24,7 +24,10 @@ const Tab = createMaterialBottomTabNavigator();
 
 function MainTabScreen({navigation}) {
   return (
-    <Tab.Navigator initialRouteName="Home" activeColor="#fff">
+    <Tab.Navigator
+      initialRouteName="Home"
+      activeColor="#fff"
+      backBehavior="none">
       <Tab.Screen
         name="Profile"
         component={ProfileStackScreen}

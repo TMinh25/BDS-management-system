@@ -39,7 +39,7 @@ function SignInScreen({navigation}) {
             // global.currentUser = results.rows.item(0)['user_id'];
             global.currentUser = currentUser;
             Keyboard.dismiss();
-            navigation.navigate('Home');
+            navigation.replace('Home');
           } else {
             Alert.alert('Sai tài khoản hoặc mật khẩu');
           }
