@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import { } from 'react-native';
+import React, {useEffect} from 'react';
+import {} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
 
 // IMPORT SCREENS
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import MainTabScreen from './screens/MainTabScreen';
 
-db = SQLite.openDatabase({ name: 'BDSonline.db' });
+let db = SQLite.openDatabase({name: 'BDSonline.db'});
 if (!db) {
   console.log('Could not connect to database!');
 } else {
@@ -47,7 +47,7 @@ function App() {
           if (results.rows.length == 0) {
             tx.executeSql('DROP TABLE IF EXISTS user_tbl', []);
             tx.executeSql(
-              'CREATE TABLE user_tbl (user_id INTEGER PRIMARY KEY AUTOINCREMENT, tai_khoan TEXT, mat_khau TEXT, power INTEGER, ho_ten TEXT, gioi_tinh TEXT, tuoi INTEGER, avatar TEXT, ghi_chu TEXT )',
+              'CREATE TABLE user_tbl (user_id INTEGER PRIMARY KEY AUTOINCREMENT, tai_khoan TEXT, mat_khau TEXT, power INTEGER, ho_ten TEXT, sdt TEXT, gioi_tinh TEXT, tuoi INTEGER, avatar TEXT, ghi_chu TEXT )',
               [],
             );
             console.log('created table: user_tbl!');
@@ -59,34 +59,20 @@ function App() {
     });
 
     db.transaction(function (tx) {
-      tx.executeSql(
-        "SELECT * FROM user_tbl",
-        [],
-        function (tx, results) {
-          console.log('Số tài khoản: ' + results.rows.length);
-        },
-      );
+      tx.executeSql('SELECT * FROM user_tbl', [], function (tx, results) {
+        console.log('Số tài khoản: ' + results.rows.length);
+      });
     });
   });
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
-        }}
-      >
-        <Stack.Screen
-          name="SignIn"
-          component={SignInScreen}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-        />
-        <Stack.Screen
-          name="Home"
-          component={MainTabScreen}
-        />
+          headerShown: false,
+        }}>
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="Home" component={MainTabScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -7,6 +7,7 @@ import {
   Text,
   StatusBar,
   Alert,
+  Keyboard,
 } from 'react-native';
 
 import SQLite from 'react-native-sqlite-storage';
@@ -14,47 +15,63 @@ import SQLite from 'react-native-sqlite-storage';
 import MyTextInput from '../components/MyTextInput';
 import MyButton from '../components/MyButton';
 
-db = SQLite.openDatabase({ name: 'BDSonline.db' });
+let db = SQLite.openDatabase({name: 'BDSonline.db'});
 if (!db) {
   console.log('Could not connect to database!');
 } else {
   console.log('Database connected!');
 }
 
-
-function SignInScreen({ navigation }) {
+function SignInScreen({navigation}) {
   var [taikhoan, setTaikhoan] = React.useState('');
   var [matkhau, setMatkhau] = React.useState('');
+  global.currentUser = [];
   function dangNhap() {
     db.transaction(function (tx) {
       tx.executeSql(
-        "SELECT * FROM user_tbl WHERE tai_khoan=? AND mat_khau=?",
+        'SELECT * FROM user_tbl WHERE tai_khoan=? AND mat_khau=?',
         [taikhoan, matkhau],
         function (tx, results) {
           console.log('Có tài khoản: ' + Boolean(results.rows.length));
           if (results.rows.length === 1) {
-            console.log('Mã người dùng: ' + results.rows.item(0)['user_id']);
-            console.log('Signed In!');
-            navigation.navigate('Home');
-            global.currentUser = results.rows.item(0)['user_id'];
+            let currentUser = results.rows.item(0);
+            console.log('Đăng nhập mã người dùng: ' + currentUser['user_id']);
             // global.currentUser = results.rows.item(0)['user_id'];
+            global.currentUser = currentUser;
             Keyboard.dismiss();
+            navigation.navigate('Home');
           } else {
             Alert.alert('Sai tài khoản hoặc mật khẩu');
           }
-        }, (tx, err) => {
+        },
+        (tx, err) => {
           console.log(err);
-        }
+        },
       );
     });
-    // navigation.navigate("Home");
-  };
+    // navigation.navigate('Home');
+  }
   return (
     <SafeAreaView>
-      <MyTextInput placeHolder="Tài khoản" onChangeText={(val) => { setTaikhoan(val) }} />
-      <MyTextInput placeHolder="Mật khẩu" onChangeText={(val) => { setMatkhau(val) }} />
+      <MyTextInput
+        placeHolder="Tài khoản"
+        onChangeText={(val) => {
+          setTaikhoan(val);
+        }}
+      />
+      <MyTextInput
+        placeHolder="Mật khẩu"
+        onChangeText={(val) => {
+          setMatkhau(val);
+        }}
+      />
       <MyButton title="Đăng nhập" onPress={dangNhap} />
-      <MyButton title="Đăng kí" onPress={() => { navigation.navigate("SignUp") }} />
+      <MyButton
+        title="Đăng kí"
+        onPress={() => {
+          navigation.navigate('SignUp');
+        }}
+      />
     </SafeAreaView>
   );
 }

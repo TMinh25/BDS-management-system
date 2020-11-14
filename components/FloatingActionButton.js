@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default class FAB extends Component {
   constructor(props) {

@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 // import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 // IMPORT COMPONENTS
 
 // IMPORT SCREEN
@@ -13,7 +13,7 @@ import SettingScreen from './SettingScreen';
 import HomeStackScreen from './HomeStackScreen';
 import ProfileStackScreen from './ProfileStackScreen';
 
-db = SQLite.openDatabase({ name: 'BDSonline.db' });
+let db = SQLite.openDatabase({name: 'BDSonline.db'});
 if (!db) {
   console.log('Could not connect to database!');
 } else {
@@ -22,12 +22,9 @@ if (!db) {
 
 const Tab = createMaterialBottomTabNavigator();
 
-function MainTabScreen({ navigation }) {
+function MainTabScreen({navigation}) {
   return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      activeColor="#fff"
-    >
+    <Tab.Navigator initialRouteName="Home" activeColor="#fff">
       <Tab.Screen
         name="Profile"
         component={ProfileStackScreen}
@@ -61,7 +58,7 @@ function MainTabScreen({ navigation }) {
           // ),
         }}
       />
-    </Tab.Navigator >
+    </Tab.Navigator>
   );
 }
 
