@@ -24,9 +24,7 @@ function SettingScreen({navigation}) {
                 {
                   text: 'Đi luôn',
                   style: 'logout',
-                  onPress: () => {
-                    navigation.navigate('SignIn');
-                  },
+                  onPress: () => navigation.navigate('SignIn'),
                   // Nếu người dùng chấp thuận, cho ra ngoài màn hình signin
                 },
               ],

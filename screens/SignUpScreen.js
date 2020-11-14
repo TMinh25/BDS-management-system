@@ -20,7 +20,7 @@ var db = openDatabase({name: 'BDSonline.db'});
 function errorCB(err) {
   console.log('SQL Error: ' + JSON.stringify(err));
 }
-const SignUpScreen = ({route, navigation}) => {
+const SignUpScreen = ({navigation}) => {
   let [taikhoan, setTaikhoan] = useState('');
   let [matkhau, setMatkhau] = useState('');
   let [hoten, setHoten] = useState('');
@@ -50,8 +50,8 @@ const SignUpScreen = ({route, navigation}) => {
     });
   };
 
-  let checkValid = () => {
-    return taikhoan && matkhau && hoten && gioitinh && tuoi && avatar;
+  let isFinishingForm = () => {
+    return taikhoan || matkhau || hoten || gioitinh || tuoi || avatar;
   };
 
   let signUpNewAccount = () => {
@@ -62,11 +62,11 @@ const SignUpScreen = ({route, navigation}) => {
         (tx, results) => {
           if (results.rowsAffected > 0) {
             Alert.alert(
-              'Thành công',
-              'Tạo tài khoản thành công',
+              'Thành công rồi!',
+              'Bạn có thể khám phá rồi đó',
               [
                 {
-                  text: 'Đồng ý',
+                  text: 'OK',
                   onPress: () => navigation.navigate('SignIn'),
                 },
               ],
@@ -86,7 +86,7 @@ const SignUpScreen = ({route, navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
-        <View style={{flex: 1, backgroundColor: 'white'}}>
+        <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 20}}>
           <Text style={styles.pageTitle}>Thêm tài khoản</Text>
           <MyTextInput
             placeHolder="Tài khoản"
@@ -165,9 +165,35 @@ const SignUpScreen = ({route, navigation}) => {
             </View>
             <View style={{flex: 1}}></View>
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 3}}>
-              <MyButton title="Tạo tài khoản" onPress={signUpNewAccount} />
+          <View style={{flexDirection: 'column'}}>
+            <View style={{flex: 1}}>
+              <MyButton title="Đăng kí nào!" onPress={signUpNewAccount} />
+            </View>
+            <View style={{flex: 1}}>
+              <MyButton
+                title="Có tài khoản rồi, quay lại thôi!"
+                style={styles.button}
+                onPress={() => {
+                  if (isFinishingForm()) {
+                    Alert.alert(
+                      'Bạn đang làm dở mà',
+                      'Bạn thật sự muốn quay lại chứ',
+                      [
+                        {
+                          text: 'Hủy',
+                          onPress: () => {},
+                        },
+                        {
+                          text: 'Có',
+                          onPress: () => navigation.goBack(),
+                        },
+                      ],
+                    );
+                  } else {
+                    navigation.goBack();
+                  }
+                }}
+              />
             </View>
           </View>
         </View>
@@ -203,5 +229,8 @@ const styles = StyleSheet.create({
     margin: 10,
     borderColor: '#909090',
     borderWidth: 3,
+  },
+  button: {
+    backgroundColor: 'red',
   },
 });

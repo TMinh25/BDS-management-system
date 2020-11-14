@@ -14,12 +14,12 @@ class MyButton extends React.Component {
   }
   render() {
     return (
-      <View style={{paddingHorizontal: 20}}>
+      <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, this.props.style]}
           onPress={this.props.onPress}
           activeOpacity={0.5}>
-          <View style={styles.buttonContainer}>
+          <View>
             {this.props.title && (
               <Text style={styles.text}>{this.props.title}</Text>
             )}
@@ -33,14 +33,13 @@ export default MyButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    paddingHorizontal: 10,
-    marginTop: 20,
-    width: '100%',
-    backgroundColor: '#486DD2',
-    borderRadius: 5,
+    marginHorizontal: 20,
+    marginTop: 10,
   },
   button: {
     borderRadius: 10,
+    backgroundColor: '#486DD2',
+    width: '100%',
   },
   text: {
     color: '#ffffff',
