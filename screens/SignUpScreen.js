@@ -164,7 +164,7 @@ const SignUpScreen = ({navigation}) => {
               <MyButton
                 title="Đăng kí nào!"
                 style={{
-                  backgroundColor: global.colorTheme.seaGreen,
+                  backgroundColor: Color.seaGreen,
                   marginTop: 15,
                 }}
                 onPress={signUpNewAccount}
@@ -173,7 +173,7 @@ const SignUpScreen = ({navigation}) => {
             <View style={{flex: 1}}>
               <MyButton
                 title="Có tài khoản rồi, quay lại thôi!"
-                style={{backgroundColor: global.colorTheme.redOrange}}
+                style={{backgroundColor: Color.redOrange}}
                 onPress={() => {
                   if (isFinishingForm()) {
                     Alert.alert(

@@ -7,7 +7,6 @@ function SettingScreen({navigation}) {
   return (
     <SafeAreaView>
       <View>
-        <Text>Setting!</Text>
         <MyButton
           title="Đăng xuất"
           style={{backgroundColor: '#FD586B'}}

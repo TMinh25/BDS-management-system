@@ -14,6 +14,7 @@ import SQLite from 'react-native-sqlite-storage';
 
 import MyTextInput from '../components/MyTextInput';
 import MyButton from '../components/MyButton';
+import {Color} from '../components/Color';
 
 let db = SQLite.openDatabase({name: 'BDSonline.db'});
 if (!db) {
@@ -67,11 +68,6 @@ function SignInScreen({navigation}) {
             alignItems: 'center',
             alignSelf: 'center',
             borderRadius: 300,
-            // shadowColor: '#000',
-            // shadowOffset: {width: 0, height: 2},
-            // shadowOpacity: 0.2,
-            // shadowRadius: 2,
-            // elevation: 5,
           }}>
           <Image
             source={require('../image/signInImage.png')}
@@ -98,7 +94,7 @@ function SignInScreen({navigation}) {
           <MyButton
             title="Đăng nhập"
             style={{
-              backgroundColor: global.colorTheme.seaGreen,
+              backgroundColor: Color.seaGreen,
               borderRadius: 50,
             }}
             onPress={dangNhap}
@@ -111,7 +107,7 @@ function SignInScreen({navigation}) {
               borderWidth: 0.5,
               borderRadius: 50,
             }}
-            textStyle={{color: 'black'}}
+            textStyle={{color: Color.jetGray}}
             onPress={() => {
               navigation.navigate('SignUp');
             }}

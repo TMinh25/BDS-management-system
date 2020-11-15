@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
-import Icon from 'react-native-vector-icons/Ionicons';
-// import { NavigationContainer } from '@react-navigation/native';
+// import Icon from 'react-native-vector-icons/Ionicons';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+
 // IMPORT COMPONENTS
+import {Color} from '../components/Color';
 
 // IMPORT SCREEN
 import SettingScreen from './SettingScreen';
@@ -28,12 +29,8 @@ function MainTabScreen({navigation}) {
       activeColor="#fff"
       backBehavior="none"
       tabBarPosition="bottom"
-      lazy={true}
-      // lazyPlaceholder={
-      //   <View>
-      //     <Text>Loading</Text>
-      //   </View>
-      // }
+      // lazy={true}
+      // lazyPreloadDistance={1}
       swipeEnabled={true}>
       <Tab.Screen
         name="Profile"
@@ -73,3 +70,11 @@ function MainTabScreen({navigation}) {
 }
 
 export default MainTabScreen;
+
+const styles = StyleSheet.create({
+  caption: {
+    fontSize: 13,
+    textAlign: 'center',
+    color: Color.jetGray,
+  },
+});
