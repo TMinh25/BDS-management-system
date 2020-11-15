@@ -5,7 +5,7 @@ import {
   ScrollView,
   View,
   Text,
-  StatusBar,
+  Image,
   Alert,
   Keyboard,
 } from 'react-native';
@@ -52,26 +52,72 @@ function SignInScreen({navigation}) {
     // navigation.navigate('Home');
   }
   return (
-    <SafeAreaView>
-      <MyTextInput
-        placeHolder="Tài khoản"
-        onChangeText={(val) => {
-          setTaikhoan(val);
-        }}
-      />
-      <MyTextInput
-        placeHolder="Mật khẩu"
-        onChangeText={(val) => {
-          setMatkhau(val);
-        }}
-      />
-      <MyButton title="Đăng nhập" onPress={dangNhap} />
-      <MyButton
-        title="Đăng kí"
-        onPress={() => {
-          navigation.navigate('SignUp');
-        }}
-      />
+    <SafeAreaView style={{height: '100%'}}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          flexDirection: 'column',
+        }}>
+        <View
+          style={{
+            width: global.dimensionWidth / 1.3,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            borderRadius: 300,
+            // shadowColor: '#000',
+            // shadowOffset: {width: 0, height: 2},
+            // shadowOpacity: 0.2,
+            // shadowRadius: 2,
+            // elevation: 5,
+          }}>
+          <Image
+            source={require('../image/signInImage.png')}
+            style={{
+              width: global.dimensionWidth / 1.3,
+              resizeMode: 'contain',
+            }}
+          />
+        </View>
+        <View style={{flex: 1}}>
+          <MyTextInput
+            placeHolder="Tài khoản"
+            onChangeText={(val) => {
+              setTaikhoan(val);
+            }}
+          />
+          <MyTextInput
+            placeHolder="Mật khẩu"
+            style={{marginBottom: 20}}
+            onChangeText={(val) => {
+              setMatkhau(val);
+            }}
+          />
+          <MyButton
+            title="Đăng nhập"
+            style={{
+              backgroundColor: global.colorTheme.seaGreen,
+              borderRadius: 50,
+            }}
+            onPress={dangNhap}
+          />
+          <MyButton
+            title="Đăng kí"
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'lightgray',
+              borderWidth: 0.5,
+              borderRadius: 50,
+            }}
+            textStyle={{color: 'black'}}
+            onPress={() => {
+              navigation.navigate('SignUp');
+            }}
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 }

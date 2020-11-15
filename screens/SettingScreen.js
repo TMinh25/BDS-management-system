@@ -10,6 +10,7 @@ function SettingScreen({navigation}) {
         <Text>Setting!</Text>
         <MyButton
           title="Đăng xuất"
+          style={{backgroundColor: '#FD586B'}}
           onPress={() => {
             // hỏi người dùng muốn logout hay không
             Alert.alert(

@@ -61,71 +61,91 @@ export default function NewProp({navigation}) {
     });
   };
 
+  let isFinishingForm = () =>
+    diachi || dientich || huong || giathamdinh || ghichu;
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView>
-        <Text>New Props</Text>
-        <View style={{flex: 1, backgroundColor: 'white'}}>
-          <Text style={styles.pageTitle}>Thêm tài khoản</Text>
-          <MyTextInput
-            placeHolder="Địa chỉ"
-            value={diachi}
-            style={styles.textInput}
-            onChangeText={(val) => {
-              setDiachi(val);
-            }}
-          />
-          <MyTextInput
-            placeHolder="Diện tích"
-            value={dientich}
-            style={styles.textInput}
-            onChangeText={(val) => {
-              setDientich(val);
-            }}
-          />
-          <MyTextInput
-            placeHolder="Hướng"
-            value={huong}
-            style={styles.textInput}
-            onChangeText={(val) => {
-              setHuong(val);
-            }}
-          />
-          <MyTextInput
-            placeHolder="Giá thẩm định"
-            value={giathamdinh}
-            style={styles.textInput}
-            onChangeText={(val) => {
-              setGiathamdinh(val);
-            }}
-          />
-          <MyTextInput
-            placeHolder="Ghi chú"
-            value={ghichu}
-            onChangeText={(val) => setGhichu(val)}
-            style={styles.textArea}
-            multiline={true}
-            numberOfLines={4}
-          />
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1}}>
-              <MyButton
-                title="Hủy"
-                onPress={() => {
+    <SafeAreaView style={{flex: 1, height: '100%'}}>
+      <View style={{flex: 1, backgroundColor: 'white', height: '100%'}}>
+        <Text style={styles.pageTitle}>Tài sản muốn bán</Text>
+        <MyTextInput
+          placeHolder="Địa chỉ"
+          value={diachi}
+          style={styles.textInput}
+          onChangeText={(val) => {
+            setDiachi(val);
+          }}
+        />
+        <MyTextInput
+          placeHolder="Diện tích"
+          value={dientich}
+          style={styles.textInput}
+          onChangeText={(val) => {
+            setDientich(val);
+          }}
+        />
+        <MyTextInput
+          placeHolder="Hướng"
+          value={huong}
+          style={styles.textInput}
+          onChangeText={(val) => {
+            setHuong(val);
+          }}
+        />
+        <MyTextInput
+          placeHolder="Giá thẩm định"
+          value={giathamdinh}
+          style={styles.textInput}
+          onChangeText={(val) => {
+            setGiathamdinh(val);
+          }}
+        />
+        <MyTextInput
+          placeHolder="Giới thiệu"
+          value={ghichu}
+          onChangeText={(val) => setGhichu(val)}
+          style={styles.textArea}
+          multiline={true}
+          numberOfLines={4}
+        />
+        <View style={{flexDirection: 'row', flex: 1}}>
+          <View style={{flex: 1}}>
+            <MyButton
+              title="Hủy"
+              style={{backgroundColor: '#FD586B'}}
+              // style={{backgroundColor: '#ff3644'}}
+              onPress={() => {
+                if (isFinishingForm()) {
+                  Alert.alert(
+                    'Bạn đang làm dở mà',
+                    'Bạn thật sự muốn quay lại chứ',
+                    [
+                      {
+                        text: 'Hủy',
+                        onPress: () => {},
+                      },
+                      {
+                        text: 'Có',
+                        onPress: () => navigation.goBack(),
+                      },
+                    ],
+                  );
+                } else {
                   navigation.goBack();
-                }}
-              />
-            </View>
-            <View style={{flex: 1}}>
-              <MyButton
-                title="Xác nhận"
-                style={{backgroundColor: '#42f563'}}
-                onPress={registerNewProp}
-              />
-            </View>
+                }
+              }}
+            />
+          </View>
+          <View style={{flex: 1}}>
+            <MyButton
+              title="Đăng"
+              // style={{backgroundColor: '#6334f4'}}
+              style={{backgroundColor: '#36DEED'}}
+              onPress={registerNewProp}
+            />
           </View>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

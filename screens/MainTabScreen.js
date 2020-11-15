@@ -4,8 +4,7 @@ import SQLite from 'react-native-sqlite-storage';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 // import { NavigationContainer } from '@react-navigation/native';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 // IMPORT COMPONENTS
 
 // IMPORT SCREEN
@@ -20,14 +19,22 @@ if (!db) {
   console.log('Database connected!');
 }
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 function MainTabScreen({navigation}) {
   return (
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#fff"
-      backBehavior="none">
+      backBehavior="none"
+      tabBarPosition="bottom"
+      lazy={true}
+      // lazyPlaceholder={
+      //   <View>
+      //     <Text>Loading</Text>
+      //   </View>
+      // }
+      swipeEnabled={true}>
       <Tab.Screen
         name="Profile"
         component={ProfileStackScreen}

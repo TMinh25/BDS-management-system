@@ -21,7 +21,9 @@ class MyButton extends React.Component {
           activeOpacity={0.5}>
           <View>
             {this.props.title && (
-              <Text style={styles.text}>{this.props.title}</Text>
+              <Text style={[styles.text, this.props.textStyle]}>
+                {this.props.title}
+              </Text>
             )}
           </View>
         </TouchableOpacity>
@@ -40,6 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#486DD2',
     width: '100%',
+    elevation: 4,
   },
   text: {
     color: '#ffffff',

@@ -41,22 +41,32 @@ export default function Home({navigation}) {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <FlatList
-          data={flatListData}
-          // keyExtractor={(item) => item.bds_id.toString()}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <FlatListItem
-              backgroundColor={randomColor({
-                hue: 'random',
-                luminosity: 'light',
-              })}
-              item={item}
-            />
-          )}
-        />
+        {flatListData.length === 0 ? (
+          <View style={styles.container}>
+            <Text style={styles.caption}>Chưa có bất động sản nào hết!</Text>
+            <Text style={styles.caption}>
+              Hãy đăng một mặt hàng nếu bạn muốn bán tài sản...
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            data={flatListData}
+            // keyExtractor={(item) => item.bds_id.toString()}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => (
+              <FlatListItem
+                backgroundColor={randomColor({
+                  hue: 'random',
+                  luminosity: 'light',
+                })}
+                item={item}
+              />
+            )}
+          />
+        )}
         <FAB
           title="+"
+          style={{backgroundColor: '#30B7FF'}}
           onPress={() => {
             navigation.navigate('NewProp');
           }}
@@ -71,5 +81,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     height: '100%',
+    backgroundColor: 'white',
+  },
+  caption: {
+    fontSize: 13,
+    textAlign: 'center',
+    color: 'gray',
   },
 });

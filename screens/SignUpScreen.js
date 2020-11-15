@@ -88,6 +88,20 @@ const SignUpScreen = ({navigation}) => {
       <ScrollView>
         <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 20}}>
           <Text style={styles.pageTitle}>Thêm tài khoản</Text>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <TouchableWithoutFeedback
+              style={styles.avatar}
+              onPress={chooseImage}>
+              <Image
+                source={
+                  avatar !== ''
+                    ? {uri: avatar}
+                    : require('../image/chooseImage.png')
+                }
+                style={styles.avatar}
+              />
+            </TouchableWithoutFeedback>
+          </View>
           <MyTextInput
             placeHolder="Tài khoản"
             value={taikhoan}
@@ -145,34 +159,21 @@ const SignUpScreen = ({navigation}) => {
             multiline={true}
             numberOfLines={4}
           />
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1}}></View>
-            <View style={{flex: 4, alignItems: 'center'}}>
-              <TouchableWithoutFeedback
-                style={styles.avatar}
-                onPress={chooseImage}>
-                <View>
-                  <Image
-                    source={
-                      avatar !== ''
-                        ? {uri: avatar}
-                        : require('../image/chooseImage.png')
-                    }
-                    style={styles.avatar}
-                  />
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-            <View style={{flex: 1}}></View>
-          </View>
           <View style={{flexDirection: 'column'}}>
             <View style={{flex: 1}}>
-              <MyButton title="Đăng kí nào!" onPress={signUpNewAccount} />
+              <MyButton
+                title="Đăng kí nào!"
+                style={{
+                  backgroundColor: global.colorTheme.seaGreen,
+                  marginTop: 15,
+                }}
+                onPress={signUpNewAccount}
+              />
             </View>
             <View style={{flex: 1}}>
               <MyButton
                 title="Có tài khoản rồi, quay lại thôi!"
-                style={styles.button}
+                style={{backgroundColor: global.colorTheme.redOrange}}
                 onPress={() => {
                   if (isFinishingForm()) {
                     Alert.alert(
@@ -214,23 +215,21 @@ const styles = StyleSheet.create({
   },
   textInput: {
     padding: 10,
-    fontSize: 18,
+    fontSize: 13,
   },
   textArea: {
     padding: 10,
-    fontSize: 18,
+    fontSize: 13,
     minHeight: 100,
     textAlign: 'left',
     textAlignVertical: 'top',
   },
   avatar: {
-    width: 200,
-    height: 200,
+    width: 220,
+    height: 220,
     margin: 10,
     borderColor: '#909090',
     borderWidth: 3,
-  },
-  button: {
-    backgroundColor: 'red',
+    borderRadius: 400,
   },
 });

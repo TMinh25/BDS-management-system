@@ -9,7 +9,7 @@ class MyTextInput extends React.Component {
     return (
       <View style={styles.textInputContainer}>
         <TextInput
-          style={styles.textInput}
+          style={[styles.textInput, this.props.style]}
           underlineColorAndroid="transparent"
           placeholder={this.props.placeHolder}
           placeholderTextColor="gray"
@@ -19,7 +19,6 @@ class MyTextInput extends React.Component {
           numberOfLines={this.props.numberOfLines}
           multiline={this.props.multiline}
           onSubmitEditing={this.props.onSubmitEditing}
-          // style={this.props.style}
           blurOnSubmit={false}
           value={this.props.value}
         />
@@ -32,12 +31,13 @@ export default MyTextInput;
 const styles = StyleSheet.create({
   textInputContainer: {
     paddingHorizontal: 20,
-    marginTop: 20,
+    marginTop: 15,
   },
   textInput: {
-    borderColor: '#161616',
+    borderColor: 'lightgray',
     borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    fontSize: 13,
   },
 });

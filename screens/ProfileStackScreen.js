@@ -12,12 +12,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SignInScreen from './SignInScreen';
 
 function ProfileScreen() {
-  let dimensionWidth = Dimensions.get('window').width;
-  let dimensionHeight = Dimensions.get('window').height;
   return (
     <SafeAreaView style={{alignItems: 'center', justifyContent: 'center'}}>
       {/* <Text>Profile!</Text> */}
-      <View style={{width: dimensionWidth, height: '100%'}}>
+      <View style={{width: global.dimensionWidth, height: '100%'}}>
         <View style={{flex: 1.2}}>
           <View
             style={{
@@ -39,7 +37,7 @@ function ProfileScreen() {
                   : require('../image/avatarUnset.png')
               }
               style={{
-                width: dimensionWidth,
+                width: global.dimensionWidth,
                 height: '100%',
                 resizeMode: 'cover',
                 // borderRadius: 200 / 2,
@@ -81,14 +79,6 @@ export default ProfileStackScreen;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 16,
-  },
-  item: {
-    flexDirection: 'row',
-    minHeight: 100,
-    padding: 15,
-    backgroundColor: 'white',
-    marginVertical: 8,
     marginHorizontal: 16,
   },
   Item_avatar: {
