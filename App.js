@@ -39,9 +39,7 @@ function App() {
         ],
         (tx, results) => {
           if (results.rowsAffected > 0) {
-            console.log(
-              'Tài khoản admin: ' + taikhoan + ', Mật khẩu admin: ' + matkhau,
-            );
+            console.log('Tài khoản admin: admin, Mật khẩu admin: admin');
           } else alert('Lỗi');
         },
       );

@@ -8,6 +8,7 @@ import {Color} from '../components/Color';
 
 // IMPORT SCREENS
 import UserSettingScreen from './UserSettingScreen';
+import PropSettingScreen from './PropSettingScreen';
 
 function SignOutFunction({navigation}) {
   return (
@@ -47,10 +48,23 @@ function UserManageFunction({navigation}) {
   );
 }
 
+function PropManageFunction({navigation}) {
+  return (
+    <View>
+      <MyButton
+        title="Quản lý tài sản đăng bán"
+        style={{backgroundColor: Color.seaGreen}}
+        onPress={() => navigation.navigate('PropSetting')}
+      />
+    </View>
+  );
+}
+
 function SettingFunction({navigation}) {
   if (global.currentUser.power == 0) {
     return (
       <View>
+        {/* <PropManageFunction navigation={navigation} /> */}
         <UserManageFunction navigation={navigation} />
         <SignOutFunction navigation={navigation} />
       </View>
@@ -58,6 +72,7 @@ function SettingFunction({navigation}) {
   } else {
     return (
       <View>
+        <PropManageFunction navigation={navigation} />
         <SignOutFunction navigation={navigation} />
       </View>
     );
@@ -78,6 +93,7 @@ const SettingStackScreen = ({navigation}) => (
   <SettingStack.Navigator screenOptions={{headerShown: false}}>
     <SettingStack.Screen name="Setting" component={SettingScreen} />
     <SettingStack.Screen name="UserSetting" component={UserSettingScreen} />
+    <SettingStack.Screen name="PropSetting" component={PropSettingScreen} />
   </SettingStack.Navigator>
 );
 

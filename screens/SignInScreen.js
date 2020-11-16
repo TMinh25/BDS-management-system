@@ -37,7 +37,7 @@ function SignInScreen({navigation}) {
           if (results.rows.length === 1) {
             let currentUser = results.rows.item(0);
             console.log('Đăng nhập mã người dùng: ' + currentUser['user_id']);
-            console.log(results.rows.item(0)['power']);
+            // console.log(results.rows.item(0)['power']);
             global.currentUser = currentUser;
             Keyboard.dismiss();
             navigation.replace('Home');

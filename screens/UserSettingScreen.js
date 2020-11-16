@@ -48,9 +48,9 @@ function UserSettingScreen({navigation}) {
     setRefreshing(true);
     loadData();
     setRefreshing(false);
-    flatListRef.scrollToIndex({animated: true, index: 0});
+    // flatListRef.scrollToIndex({animated: true, index: 0});
     // wait(2000).then(() => setRefreshing(false));
-  }, [flatListRef]);
+  }, []);
   return (
     <>
       <SafeAreaView style={styles.container}>
