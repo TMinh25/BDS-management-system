@@ -10,7 +10,9 @@ import {
   Keyboard,
   Alert,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
+import Header from '@react-navigation/stack';
 import {createStackNavigator} from '@react-navigation/stack';
 import SQLite from 'react-native-sqlite-storage';
 import ImagePicker from 'react-native-image-picker';
@@ -21,6 +23,7 @@ import MyButton from '../components/MyButton';
 
 // IMPORT SCREENS
 import SignInScreen from './SignInScreen';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const db = SQLite.openDatabase({name: 'BDSonline.db'});
 
@@ -83,112 +86,117 @@ function ProfileScreen() {
     });
   };
   return (
-    <SafeAreaView style={{alignItems: 'center', justifyContent: 'center'}}>
-      {/* <Text>Profile!</Text> */}
-      <View style={{width: global.dimensionWidth, height: '100%'}}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={chooseImage}
-          style={{
-            flex: 1.2,
-          }}>
-          <View>
-            <Image
-              source={
-                avatar !== ''
-                  ? {uri: avatar}
-                  : require('../image/avatarUnset.png')
-              }
-              style={{
-                width: global.dimensionWidth,
-                height: '100%',
-                resizeMode: 'cover',
-                borderBottomLeftRadius: 100 / 2,
-                borderBottomRightRadius: 100 / 2,
-              }}
-            />
-          </View>
-        </TouchableOpacity>
+    <KeyboardAvoidingView
+      enabled
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      style={styles.flexGrowOne}>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={chooseImage}
+        style={{
+          flex: 1.2,
+          elevation: 10,
+        }}>
         <View style={{flex: 1}}>
-          <View pointerEvents={editable ? 'auto' : 'none'}>
-            <TextInput
-              style={styles.centeredTextInput}
-              value={hoten}
-              placeholder="Họ tên"
-              onChangeText={(val) => {
-                setHoten(val);
-              }}
-            />
-            <TextInput
-              style={styles.centeredTextInput}
-              placeholder="Số điện thoại"
-              value={sdt.toString()}
-              keyboardType="numeric"
-              onChangeText={(val) => {
-                setSdt(val);
-              }}
-            />
-            <TextInput
-              style={styles.centeredTextInput}
-              placeholder="Tuổi"
-              value={tuoi.toString()}
-              keyboardType="numeric"
-              onChangeText={(val) => {
-                setTuoi(val);
-              }}
-            />
-            <TextInput
-              style={styles.centeredTextInput}
-              placeholder="Giới tính"
-              value={gioitinh}
-              onChangeText={(val) => {
-                setGioitinh(val);
-              }}
-            />
-            <TextInput
-              style={styles.centeredTextInput}
-              value={ghichu}
-              placeholder="Tiểu sử"
-              onChangeText={(val) => {
-                setGhichu(val);
-              }}
-            />
-          </View>
-          {!editable && (
-            <MyButton
-              title="Chỉnh sửa"
-              onPress={() => {
-                setEditable(!editable);
-                Keyboard.dismiss();
-              }}
-            />
-          )}
-          {editable && (
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}>
-                <MyButton
-                  title="Hủy"
-                  style={{backgroundColor: Color.redOrange}}
-                  onPress={() => {
-                    setEditable(!editable);
-                    Keyboard.dismiss();
-                  }}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <MyButton
-                  title="Cập nhật"
-                  style={{backgroundColor: Color.seaGreen}}
-                  onPress={() => {
-                    updateUser();
-                  }}
-                />
-              </View>
-            </View>
-          )}
+          <Image
+            source={
+              avatar !== ''
+                ? {uri: avatar}
+                : require('../image/avatarUnset.png')
+            }
+            style={{
+              width: global.dimensionWidth,
+              height: '100%',
+              resizeMode: 'cover',
+              borderBottomLeftRadius: 100 / 2,
+              borderBottomRightRadius: 100 / 2,
+            }}
+          />
         </View>
+      </TouchableOpacity>
+      <ScrollView bounces={false} style={styles.flexOne}>
+        <View
+          style={styles.textInputWrapper}
+          pointerEvents={editable ? 'auto' : 'none'}>
+          <TextInput
+            style={styles.textInput}
+            value={hoten}
+            placeholder="Họ tên"
+            onChangeText={(val) => {
+              setHoten(val);
+            }}
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Số điện thoại"
+            value={sdt.toString()}
+            keyboardType="numeric"
+            onChangeText={(val) => {
+              setSdt(val);
+            }}
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Tuổi"
+            value={tuoi.toString()}
+            keyboardType="numeric"
+            onChangeText={(val) => {
+              setTuoi(val);
+            }}
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Giới tính"
+            value={gioitinh}
+            onChangeText={(val) => {
+              setGioitinh(val);
+            }}
+          />
+          <TextInput
+            style={styles.textInput}
+            value={ghichu}
+            placeholder="Tiểu sử"
+            onChangeText={(val) => {
+              setGhichu(val);
+            }}
+          />
+        </View>
+      </ScrollView>
+      <View style={styles.buttonBackgroundColor}>
+        {!editable && (
+          <MyButton
+            title="Chỉnh sửa"
+            onPress={() => {
+              setEditable(!editable);
+              Keyboard.dismiss();
+            }}
+          />
+        )}
+        {editable && (
+          <View style={{flexDirection: 'row'}}>
+            <View style={{flex: 1}}>
+              <MyButton
+                title="Hủy"
+                style={{backgroundColor: Color.redOrange}}
+                onPress={() => {
+                  setEditable(!editable);
+                  Keyboard.dismiss();
+                }}
+              />
+            </View>
+            <View style={{flex: 1}}>
+              <MyButton
+                title="Cập nhật"
+                style={{backgroundColor: Color.seaGreen}}
+                onPress={() => {
+                  updateUser();
+                }}
+              />
+            </View>
+          </View>
+        )}
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -203,22 +211,34 @@ const ProfileStackScreen = ({navigation}) => (
 export default ProfileStackScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 16,
+  flexGrowOne: {
+    flexGrow: 1,
   },
-  Item_avatar: {
-    marginRight: 5,
-    paddingHorizontal: 5,
+  flexOne: {
+    flex: 1,
   },
-  header: {
-    fontSize: 32,
+  textInputWrapper: {
+    flex: 1,
+    // height: 40,
+    margin: 20,
   },
-  title: {
-    fontSize: 24,
-  },
-  centeredTextInput: {
-    textAlign: 'center',
-    // width: global.dimenstionWidth / 2,
+  textInput: {
+    padding: 9,
     color: Color.davyGray,
+  },
+  buttonWrapper: {
+    backgroundColor: '#51D8C7',
+    borderWidth: 0,
+    color: '#FFFFFF',
+    borderColor: '#000',
+    height: 40,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  buttonBackgroundColor: {
+    backgroundColor: '#e6fff9',
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+    paddingTop: 10,
   },
 });

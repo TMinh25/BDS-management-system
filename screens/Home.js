@@ -21,7 +21,6 @@ const db = SQLite.openDatabase({name: 'BDSonline.db'});
 
 export default function Home({navigation}) {
   const [flatListData, setFlatListData] = React.useState([]);
-  var flatListRef = React.createRef();
 
   React.useEffect(() => {
     loadData();
@@ -103,6 +102,7 @@ export default function Home({navigation}) {
                     hue: 'blue',
                     luminosity: 'light',
                   })}
+                  borderWidth={0}
                   item={item}
                 />
               )}

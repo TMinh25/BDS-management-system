@@ -12,8 +12,7 @@ import {
 import SQLite from 'react-native-sqlite-storage';
 
 // IMPORT COMPONENTS
-import {FlatListItemProp} from '../components/FlatListItem';
-import FAB from '../components/FloatingActionButton';
+import {FlatListItemPropSetting} from '../components/FlatListItem';
 import {Color} from '../components/Color';
 
 const db = SQLite.openDatabase({name: 'BDSonline.db'});
@@ -33,7 +32,7 @@ function PropSettingScreen({navigation}) {
         'SELECT * FROM bds_tbl WHERE user_id=?',
         [global.currentUser.user_id],
         (tx, results) => {
-          console.log('Số người dùng:' + results.rows.length);
+          console.log('Số tài sản:' + results.rows.length);
           var temp = [];
           for (let i = 0; i < results.rows.length; i++) {
             let item = results.rows.item(i);
@@ -55,7 +54,7 @@ function PropSettingScreen({navigation}) {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.pageTitle}>Quản lý tài sản của bạn</Text>
+        <Text style={styles.pageTitle}>Tài sản bạn đang rao bán</Text>
         {flatListData.length === 0 ? (
           <View
             style={[styles.container, {marginTop: global.dimensionHeight / 2}]}>
@@ -82,7 +81,13 @@ function PropSettingScreen({navigation}) {
             }
             data={flatListData.reverse()}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => <FlatListItemProp item={item} />}
+            renderItem={({item}) => (
+              <FlatListItemPropSetting
+                item={item}
+                borderWidth={2}
+                navigation={navigation}
+              />
+            )}
           />
         )}
       </SafeAreaView>
@@ -94,7 +99,7 @@ export default PropSettingScreen;
 
 const styles = StyleSheet.create({
   pageTitle: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     color: Color.jetGray,

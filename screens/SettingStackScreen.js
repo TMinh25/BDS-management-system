@@ -9,6 +9,7 @@ import {Color} from '../components/Color';
 // IMPORT SCREENS
 import UserSettingScreen from './UserSettingScreen';
 import PropSettingScreen from './PropSettingScreen';
+import PropSettingDetailsScreen from './PropSettingDetailsScreen'
 
 function SignOutFunction({navigation}) {
   return (
@@ -66,6 +67,7 @@ function SettingFunction({navigation}) {
       <View>
         {/* <PropManageFunction navigation={navigation} /> */}
         <UserManageFunction navigation={navigation} />
+        <PropManageFunction navigation={navigation} />
         <SignOutFunction navigation={navigation} />
       </View>
     );
@@ -90,10 +92,27 @@ function SettingScreen({navigation}) {
 const SettingStack = createStackNavigator();
 
 const SettingStackScreen = ({navigation}) => (
-  <SettingStack.Navigator screenOptions={{headerShown: false}}>
-    <SettingStack.Screen name="Setting" component={SettingScreen} />
-    <SettingStack.Screen name="UserSetting" component={UserSettingScreen} />
-    <SettingStack.Screen name="PropSetting" component={PropSettingScreen} />
+  <SettingStack.Navigator screenOptions={{headerShown: true}}>
+    <SettingStack.Screen
+      name="Setting"
+      component={SettingScreen}
+      options={{title: 'Cài đặt'}}
+    />
+    <SettingStack.Screen
+      name="UserSetting"
+      component={UserSettingScreen}
+      options={{title: 'Quản lý người dùng'}}
+    />
+    <SettingStack.Screen
+      name="PropSetting"
+      component={PropSettingScreen}
+      options={{title: 'Quản lý tài sản'}}
+    />
+    <SettingStack.Screen
+      name="PropDetailSetting"
+      component={PropSettingDetailsScreen}
+      options={{title: 'Quản lý tài sản'}}
+    />
   </SettingStack.Navigator>
 );
 
