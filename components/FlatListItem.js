@@ -2,11 +2,58 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Color} from './Color';
 
-function FlatListItemProp({backgroundColor, item}) {
+function FlatListItemPropSetting({
+  backgroundColor,
+  borderWidth,
+  item,
+  navigation,
+}) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => {
+        let id = item['bds_id'];
+        console.log(id);
+        navigation.navigate('PropDetailSetting', {
+          ID: id,
+        });
+      }}>
+      <View
+        style={[
+          styles.containerItem,
+          {backgroundColor: backgroundColor, borderWidth: borderWidth},
+        ]}>
+        <View style={{flexDirection: 'column'}}>
+          <Text style={styles.address}>{item['dia_chi']}</Text>
+          <View style={{flexDirection: 'row', flex: 1, width: '100%'}}>
+            <View style={{flex: 1}}>
+              <Text style={styles.caption}>
+                Diện tích: {item['dien_tich']}m2
+              </Text>
+            </View>
+            <View style={{flex: 1}}>
+              <Text style={styles.caption}>Hướng: {item['huong']}</Text>
+            </View>
+            <View style={{flex: 1}}>
+              <Text style={styles.caption}>
+                Giá: {item['gia_tham_dinh']}đ/m2
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+}
+function FlatListItemProp({backgroundColor, borderWidth, item}) {
   return (
     <TouchableOpacity activeOpacity={0.5}>
       {/* <View style={styles.container}> */}
-      <View style={[styles.containerProp, {backgroundColor: backgroundColor}]}>
+      <View
+        style={[
+          styles.containerItem,
+          {backgroundColor: backgroundColor, borderWidth: borderWidth},
+        ]}>
         <View style={{flexDirection: 'column'}}>
           <Text style={styles.address}>{item['dia_chi']}</Text>
           <View style={{flexDirection: 'row', flex: 1, width: '100%'}}>
@@ -37,11 +84,11 @@ function FlatListItemProp({backgroundColor, item}) {
     </TouchableOpacity>
   );
 }
-function FlatListItemUser({backgroundColor, item}) {
+function FlatListItemUser({item}) {
   return (
     <TouchableOpacity activeOpacity={0.5}>
       {/* <View style={styles.container}> */}
-      <View style={[styles.containerUser, {backgroundColor: backgroundColor}]}>
+      <View style={styles.containerItem}>
         <View style={{flexDirection: 'column'}}>
           <Text style={styles.address}>{item['ho_ten']}</Text>
           <View style={{flexDirection: 'row', flex: 1, width: '100%'}}>
@@ -60,18 +107,10 @@ function FlatListItemUser({backgroundColor, item}) {
     </TouchableOpacity>
   );
 }
-export {FlatListItemProp, FlatListItemUser};
+export {FlatListItemPropSetting, FlatListItemProp, FlatListItemUser};
 
 const styles = StyleSheet.create({
-  containerProp: {
-    // borderWidth: 2,
-    // borderColor: '#D0D0D0',
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginBottom: 10,
-  },
-  containerUser: {
+  containerItem: {
     borderWidth: 2,
     borderColor: Color.davyGray,
     borderRadius: 50,
