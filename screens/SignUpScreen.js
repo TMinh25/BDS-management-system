@@ -15,12 +15,13 @@ import MyTextInput from '../components/MyTextInput';
 import MyButton from '../components/MyButton';
 import {openDatabase} from 'react-native-sqlite-storage';
 import ImagePicker from 'react-native-image-picker';
+import {Color} from '../components/Color';
 
 var db = openDatabase({name: 'BDSonline.db'});
 function errorCB(err) {
   console.log('SQL Error: ' + JSON.stringify(err));
 }
-const SignUpScreen = ({navigation}) => {
+const SignUpScreen = ({navigation, isAdmin}) => {
   let [taikhoan, setTaikhoan] = useState('');
   let [matkhau, setMatkhau] = useState('');
   let [hoten, setHoten] = useState('');
@@ -54,11 +55,21 @@ const SignUpScreen = ({navigation}) => {
     return taikhoan || matkhau || hoten || gioitinh || tuoi || avatar;
   };
 
-  let signUpNewAccount = () => {
+  let createNewUser = () => {
     db.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, sdt, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [taikhoan, matkhau, 1, hoten, sdt, gioitinh, tuoi, avatar, ghichu],
+        [
+          taikhoan,
+          matkhau,
+          isAdmin ? 0 : 1,
+          hoten,
+          sdt,
+          gioitinh,
+          tuoi,
+          avatar,
+          ghichu,
+        ],
         (tx, results) => {
           if (results.rowsAffected > 0) {
             Alert.alert(
@@ -73,11 +84,8 @@ const SignUpScreen = ({navigation}) => {
               {cancelable: false},
             );
             console.log('Tài khoản: ' + taikhoan + ', Mật khẩu: ' + matkhau);
-            console.log(taikhoan, matkhau, hoten, gioitinh, tuoi, ghichu);
+            console.log(hoten, gioitinh, tuoi, ghichu, isAdmin ? 0 : 1);
           } else alert('Lỗi');
-        },
-        (tx, err) => {
-          errorCB(err);
         },
       );
     });
@@ -167,7 +175,7 @@ const SignUpScreen = ({navigation}) => {
                   backgroundColor: Color.seaGreen,
                   marginTop: 15,
                 }}
-                onPress={signUpNewAccount}
+                onPress={() => createNewUser()}
               />
             </View>
             <View style={{flex: 1}}>

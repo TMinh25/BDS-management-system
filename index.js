@@ -10,5 +10,4 @@ global.currentUser = [];
 global.dimensionWidth = Dimensions.get('window').width;
 global.dimensionHeight = Dimensions.get('window').height;
 
-
 AppRegistry.registerComponent(appName, () => App);

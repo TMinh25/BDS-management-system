@@ -5,8 +5,9 @@ import {
   SafeAreaView,
   StyleSheet,
   FlatList,
-  ScrollView,
+  Image,
   RefreshControl,
+  ScrollView,
 } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
@@ -17,12 +18,6 @@ import randomColor from '../components/randomColor';
 import {Color} from '../components/Color';
 
 const db = SQLite.openDatabase({name: 'BDSonline.db'});
-
-const wait = (timeout) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
 
 export default function Home({navigation}) {
   const [flatListData, setFlatListData] = React.useState([]);
@@ -65,10 +60,24 @@ export default function Home({navigation}) {
       <SafeAreaView style={styles.container}>
         {flatListData.length === 0 ? (
           <View style={styles.container}>
-            <Text style={styles.caption}>Đợi một xíu nghen!</Text>
-            <Text style={styles.caption}>
-              Để tớ tìm xem có gì cho bạn không...
-            </Text>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }>
+              <View style={{marginBottom: 20}}>
+                <Image
+                  source={require('../image/noPropImage.png')}
+                  style={{
+                    width: global.dimensionWidth / 2,
+                    height: global.dimensionWidth / 2,
+                  }}
+                />
+              </View>
+              <Text style={styles.caption}>Đợi một xíu nghen!</Text>
+              <Text style={styles.caption}>
+                Để tớ tìm xem có gì cho bạn không...
+              </Text>
+            </ScrollView>
             {/* <Text style={styles.caption}>Chưa có bất động sản nào hết!</Text>
             <Text style={styles.caption}>
               Hãy đăng một mặt hàng nếu bạn muốn bán tài sản...
@@ -99,25 +108,27 @@ export default function Home({navigation}) {
             />
           </>
         )}
-        <FAB
-          title="+"
-          style={{backgroundColor: Color.seaGreen, marginBottom: 20}}
-          onPress={() => {
-            navigation.navigate('NewProp');
-          }}
-        />
       </SafeAreaView>
+      <FAB
+        title="+"
+        style={{backgroundColor: Color.seaGreen, margin: 20}}
+        onPress={() => {
+          navigation.navigate('NewProp');
+        }}
+      />
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
     paddingBottom: 0,
     backgroundColor: 'white',
+    height: '100%',
+    width: '100%',
   },
   caption: {
     fontSize: 13,
