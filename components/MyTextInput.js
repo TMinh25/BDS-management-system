@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, Text, StyleSheet} from 'react-native';
+import { View, TextInput, Text, StyleSheet } from 'react-native';
 
 class MyTextInput extends React.Component {
   constructor(props) {
@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     fontSize: 13,
+    backgroundColor: 'white',
   },
 });

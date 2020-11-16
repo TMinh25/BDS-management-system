@@ -9,7 +9,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {Color} from '../components/Color';
 
 // IMPORT SCREEN
-import SettingScreen from './SettingScreen';
+import SettingScreen from './SettingStackScreen';
 import HomeStackScreen from './HomeStackScreen';
 import ProfileStackScreen from './ProfileStackScreen';
 

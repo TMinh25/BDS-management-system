@@ -12,16 +12,15 @@ import {
 import SQLite from 'react-native-sqlite-storage';
 
 // IMPORT COMPONENTS
-import {FlatListItemProp} from '../components/FlatListItem';
-import FAB from '../components/FloatingActionButton'; 
-import randomColor from '../components/randomColor';
+import {FlatListItemUser} from '../components/FlatListItem';
+import FAB from '../components/FloatingActionButton';
 import {Color} from '../components/Color';
 
 const db = SQLite.openDatabase({name: 'BDSonline.db'});
-
-export default function Home({navigation}) {
+function UserSettingScreen({navigation}) {
   const [flatListData, setFlatListData] = React.useState([]);
   var flatListRef = React.createRef();
+  const [refreshing, setRefreshing] = React.useState(false);
 
   React.useEffect(() => {
     loadData();
@@ -30,10 +29,10 @@ export default function Home({navigation}) {
   function loadData() {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT user_tbl.ho_ten, user_tbl.sdt, bds_tbl.* FROM user_tbl LEFT JOIN bds_tbl WHERE bds_tbl.user_id = user_tbl.user_id',
+        'SELECT * FROM user_tbl WHERE power = 1',
         [],
         (tx, results) => {
-          console.log('Số bất động sản đang giao bán:' + results.rows.length);
+          console.log('Số người dùng:' + results.rows.length);
           var temp = [];
           for (let i = 0; i < results.rows.length; i++) {
             let item = results.rows.item(i);
@@ -45,19 +44,17 @@ export default function Home({navigation}) {
     });
   }
 
-  const [refreshing, setRefreshing] = React.useState(false);
-
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     loadData();
     setRefreshing(false);
-    // flatListRef.scrollToIndex({animated: true, index: 0});
+    flatListRef.scrollToIndex({animated: true, index: 0});
     // wait(2000).then(() => setRefreshing(false));
   }, [flatListRef]);
-
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <Text style={styles.pageTitle}>Quản lý người dùng</Text>
         {flatListData.length === 0 ? (
           <View
             style={[styles.container, {marginTop: global.dimensionHeight / 2}]}>
@@ -66,62 +63,50 @@ export default function Home({navigation}) {
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
               }>
               <View style={{marginBottom: 20}}>
-                <Image
+                {/* <Image
                   source={require('../image/noPropImage.png')}
                   style={{
                     width: global.dimensionWidth / 2,
                     height: global.dimensionWidth / 2,
                   }}
-                />
+                /> */}
               </View>
-              <Text style={styles.caption}>Đợi một xíu nghen!</Text>
+              <Text style={styles.caption}>Chưa có người dùng nào!</Text>
               <Text style={styles.caption}>
-                Để tớ tìm xem có gì cho bạn không...
+                Mình nghĩ bạn nên quảng bá phần mềm một chút...
               </Text>
             </ScrollView>
-            {/* <Text style={styles.caption}>Chưa có bất động sản nào hết!</Text>
-            <Text style={styles.caption}>
-              Hãy đăng một mặt hàng nếu bạn muốn bán tài sản...
-            </Text> */}
           </View>
         ) : (
-          <>
-            <FlatList
-              ListHeaderComponent={<View style={{padding: 10}}></View>}
-              style={styles.flatList}
-              // ref={(ref) => {
-              //   flatListRef = ref;
-              // }}
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-              }
-              data={flatListData.reverse()}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => (
-                <FlatListItemProp
-                  backgroundColor={randomColor({
-                    hue: 'blue',
-                    luminosity: 'light',
-                  })}
-                  item={item}
-                />
-              )}
-            />
-          </>
+          <FlatList
+            ListHeaderComponent={<View style={{padding: 10}}></View>}
+            style={styles.flatList}
+            ref={(ref) => {
+              flatListRef = ref;
+            }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            data={flatListData.reverse()}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => <FlatListItemUser item={item} />}
+          />
         )}
       </SafeAreaView>
-      <FAB
-        title="+"
-        style={{backgroundColor: Color.seaGreen, margin: 20}}
-        onPress={() => {
-          navigation.navigate('NewProp');
-        }}
-      />
     </>
   );
 }
 
+export default UserSettingScreen;
+
 const styles = StyleSheet.create({
+  pageTitle: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 20,
+    textTransform: 'uppercase',
+  },
   container: {
     justifyContent: 'center',
     alignItems: 'center',

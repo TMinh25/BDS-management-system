@@ -18,8 +18,37 @@ if (!db) {
 
 const Stack = createStackNavigator();
 
+const useMountEffect = (fun) => React.useEffect(fun, []);
+
 function App() {
-  React.useEffect(() => {
+  useMountEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'INSERT INTO user_tbl (user_id, tai_khoan, mat_khau, power, ho_ten, sdt, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          1,
+          'admin',
+          'admin',
+          0,
+          'Nguyễn Trường Minh',
+          '0338658656',
+          'Nam',
+          22,
+          '',
+          'Sịp đẹp trai vl',
+        ],
+        (tx, results) => {
+          if (results.rowsAffected > 0) {
+            console.log(
+              'Tài khoản admin: ' + taikhoan + ', Mật khẩu admin: ' + matkhau,
+            );
+          } else alert('Lỗi');
+        },
+      );
+    });
+  });
+
+  useMountEffect(() => {
     db.transaction(function (tx) {
       tx.executeSql(
         "SELECT name FROM sqlite_master WHERE type='table' AND name='bds_tbl'",
