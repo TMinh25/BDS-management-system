@@ -8,6 +8,7 @@ import {Color} from '../components/Color';
 
 // IMPORT SCREENS
 import UserSettingScreen from './UserSettingScreen';
+import UserSettingDetailsScreen from './UserSettingDetailsScreen';
 import PropSettingScreen from './PropSettingScreen';
 import PropSettingDetailsScreen from './PropSettingDetailsScreen'
 
@@ -101,6 +102,11 @@ const SettingStackScreen = ({navigation}) => (
     <SettingStack.Screen
       name="UserSetting"
       component={UserSettingScreen}
+      options={{title: 'Quản lý người dùng'}}
+    />
+    <SettingStack.Screen
+      name="UserDetailSetting"
+      component={UserSettingDetailsScreen}
       options={{title: 'Quản lý người dùng'}}
     />
     <SettingStack.Screen

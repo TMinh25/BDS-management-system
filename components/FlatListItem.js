@@ -84,9 +84,17 @@ function FlatListItemProp({backgroundColor, borderWidth, item}) {
     </TouchableOpacity>
   );
 }
-function FlatListItemUser({item}) {
+function FlatListItemUser({navigation, item}) {
   return (
-    <TouchableOpacity activeOpacity={0.5}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => {
+        let id = item['user_id'];
+        console.log(id);
+        navigation.navigate('UserDetailSetting', {
+          ID: id,
+        });
+      }}>
       {/* <View style={styles.container}> */}
       <View style={styles.containerItem}>
         <View style={{flexDirection: 'column'}}>

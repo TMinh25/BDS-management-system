@@ -29,6 +29,7 @@ function UserSettingScreen({navigation}) {
   function loadData() {
     db.transaction((tx) => {
       tx.executeSql(
+        // 'SELECT * FROM user_tbl',
         'SELECT * FROM user_tbl WHERE power = 1',
         [],
         (tx, results) => {
@@ -87,9 +88,9 @@ function UserSettingScreen({navigation}) {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
-            data={flatListData.reverse()}
+            data={flatListData}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => <FlatListItemUser item={item} />}
+            renderItem={({item}) => <FlatListItemUser navigation={navigation} item={item} />}
           />
         )}
       </SafeAreaView>

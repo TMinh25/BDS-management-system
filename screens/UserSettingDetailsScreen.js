@@ -19,64 +19,79 @@ import {Color} from '../components/Color';
 
 const db = SQLite.openDatabase({name: 'BDSonline.db'});
 
-function PropSettingDetailsScreen({navigation, route}) {
+function UserSettingDetailsScreen({navigation, route}) {
   const ID = route.params.ID;
   let [editable, setEditable] = useState(false);
-  const [prop, setProp] = useState([]);
-  var [diachi, setDiachi] = useState('');
-  var [dientich, setDientich] = useState('');
-  var [huong, setHuong] = useState('');
-  var [giathamdinh, setGiathamdinh] = useState('');
+  const [user, setUser] = useState([]);
+
+  var [taikhoan, setTaikhoan] = useState('');
+  var [matkhau, setMatkhau] = useState('');
+  var [power, setPower] = useState('');
+  var [hoten, setHoten] = useState('');
+  var [sdt, setSdt] = useState('');
+  var [gioitinh, setGioitinh] = useState('');
+  var [tuoi, setTuoi] = useState('');
+  var [avatar, setAvatar] = useState('');
   var [ghichu, setGhichu] = useState('');
 
   function setAllProp() {
-    setDiachi(prop['dia_chi']);
-    setDientich(prop['dien_tich'].toString());
-    setHuong(prop['huong']);
-    setGiathamdinh(prop['gia_tham_dinh'].toString());
-    setGhichu(prop['ghi_chu']);
+    setTaikhoan(user['tai_khoan']);
+    setMatkhau(user['mat_khau']);
+    setPower(user['power'].toString());
+    setHoten(user['ho_ten']);
+    setSdt(user['sdt']);
+    setGioitinh(user['gioi_tinh']);
+    setTuoi(user['tuoi'].toString());
+    setAvatar(user['avatar']);
+    setGhichu(user['ghi_chu']);
   }
 
   React.useEffect(() => {
     loadData();
-  }, [prop['bds_id']]);
+  }, [user['user_id']]);
 
   function loadData() {
     console.log('id: ' + ID);
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT * FROM bds_tbl WHERE bds_id=?',
+        'SELECT * FROM user_tbl WHERE user_id=?',
         [ID],
         (tx, results) => {
           if (results.rows.length === 1) {
-            console.log('Tìm thấy tài sản');
-            setProp(results.rows.item(0));
+            console.log('Tìm thấy người dùng');
+            setUser(results.rows.item(0));
             setAllProp();
-            // setDiachi(prop['dia_chi']);
-            // setDientich(prop['dien_tich'].toString());
-            // setHuong(prop['huong']);
-            // setGiathamdinh(prop['gia_tham_dinh'].toString());
-            // setGhichu(prop['ghi_chu']);
           } else {
-            console.log('Lỗi không tìm thấy tài sản');
+            console.log('Lỗi không tìm thấy người dùng');
+            navigation.goBack();
           }
         },
       );
     });
   }
 
-  let updateProp = () => {
-    console.log(diachi, dientich, huong, giathamdinh, ghichu);
+  let updateUser = () => {
     db.transaction((tx) => {
       tx.executeSql(
-        'UPDATE bds_tbl SET dia_chi=?, dien_tich=?, huong=?, gia_tham_dinh=?, ghi_chu=? WHERE bds_id=?',
-        [diachi, dientich, huong, giathamdinh, ghichu, ID],
+        'UPDATE user_tbl SET tai_khoan=?, mat_khau=?, power=?, ho_ten=?, sdt=?, gioi_tinh=?, tuoi=?, avatar=?, ghi_chu=? WHERE user_id=?',
+        [
+          taikhoan,
+          matkhau,
+          power,
+          hoten,
+          sdt,
+          gioitinh,
+          tuoi,
+          avatar,
+          ghichu,
+          ID,
+        ],
         (tx, results) => {
           console.log('Executed query');
           if (results.rowsAffected > 0) {
             Alert.alert(
               'Thành công rồi',
-              'Thay đổi thông tin tài sản thành công nhaaa',
+              'Thay đổi thông tin người dùng thành công nhaaa',
               [
                 {
                   text: 'Ok',
@@ -99,16 +114,16 @@ function PropSettingDetailsScreen({navigation, route}) {
   let deleteProp = () => {
     db.transaction((tx) => {
       tx.executeSql(
-        'DELETE FROM bds_tbl where bds_id=?',
+        'DELETE FROM user_tbl where user_id=?',
         [ID],
         (tx, results) => {
           if (results.rowsAffected > 0) {
             Alert.alert(
               'Thành công rồi!',
-              'Bạn đã xóa tài sản thành công.',
+              'Bạn đã xóa tài khoản thành công.',
               [
                 {
-                  text: 'ok',
+                  text: 'OK',
                   onPress: () => navigation.goBack(),
                 },
               ],
@@ -135,42 +150,60 @@ function PropSettingDetailsScreen({navigation, route}) {
             pointerEvents={editable ? 'auto' : 'none'}>
             <TextInput
               style={styles.textInput}
-              value={diachi}
-              placeholder="Địa chỉ"
+              value={taikhoan}
+              placeholder="Tài khoản"
               onChangeText={(val) => {
-                setDiachi(val);
+                setTaikhoan(val);
               }}
             />
             <TextInput
               style={styles.textInput}
-              placeholder="Diện tích"
-              value={dientich}
+              placeholder="Mật khẩu"
+              value={matkhau}
               keyboardType="numeric"
               onChangeText={(val) => {
-                setDientich(val);
+                setMatkhau(val);
               }}
             />
             <TextInput
               style={styles.textInput}
-              placeholder="Hướng"
-              value={huong}
+              placeholder="Họ tên"
+              value={hoten}
               onChangeText={(val) => {
-                setHuong(val);
+                setHoten(val);
               }}
             />
             <TextInput
               style={styles.textInput}
-              placeholder="Giá thẩm định"
-              value={giathamdinh}
-              keyboardType="numeric"
+              value={sdt}
+              placeholder="Số điện thoại"
+              keyboardType="phone-pad"
               onChangeText={(val) => {
-                setGiathamdinh(val);
+                setSdt(val);
+              }}
+            />
+            <TextInput
+              style={styles.textInput}
+              value={gioitinh}
+              placeholder="Giới tính"
+              onChangeText={(val) => {
+                setGioitinh(val);
+              }}
+            />
+            <TextInput
+              style={styles.textInput}
+              value={tuoi}
+              placeholder="Tuổi"
+              keyboardType="phone-pad"
+              onChangeText={(val) => {
+                setTuoi(val);
               }}
             />
             <TextInput
               style={styles.textInput}
               value={ghichu}
-              placeholder="Ghi chú"
+              placeholder="Tiểu sử"
+              keyboardType="phone-pad"
               onChangeText={(val) => {
                 setGhichu(val);
               }}
@@ -182,7 +215,7 @@ function PropSettingDetailsScreen({navigation, route}) {
             <View>
               <MyButton
                 title="Chỉnh sửa"
-                style={{backgroundColor: Color.seaGreen}}
+                // style={{backgroundColor: Color.seaGreen}}
                 onPress={() => {
                   setEditable(!editable);
                   Keyboard.dismiss();
@@ -194,7 +227,7 @@ function PropSettingDetailsScreen({navigation, route}) {
                 onPress={() => {
                   Alert.alert(
                     'Xóa tài sản này?',
-                    'Bạn muốn xóa tài sản này chứ?',
+                    'Bạn muốn xóa tài khoản này chứ?',
                     [
                       {
                         text: 'Không',
@@ -211,25 +244,48 @@ function PropSettingDetailsScreen({navigation, route}) {
             </View>
           )}
           {editable && (
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 1}}>
-                <MyButton
-                  title="Hủy"
-                  style={{backgroundColor: Color.redOrange}}
-                  onPress={() => {
-                    setEditable(!editable);
-                    Keyboard.dismiss();
-                  }}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <MyButton
-                  title="Cập nhật"
-                  style={{backgroundColor: Color.seaGreen}}
-                  onPress={() => {
-                    updateProp();
-                  }}
-                />
+            <View>
+              <MyButton
+                title="Thăng cấp làm quản trị viên"
+                onPress={() => {
+                  setPower('0');
+                  Alert.alert(
+                    'Bạn đã thăng cấp cho người dùng này làm quản trị viên!',
+                    [
+                      {
+                        text: 'Sai rồi, quay đầu là bờ',
+                        onPress: () => {
+                          setPower(1);
+                        },
+                      },
+                      {
+                        text: 'Ổn',
+                        onPress: () => {},
+                      },
+                    ],
+                  );
+                }}
+              />
+              <View style={{flexDirection: 'row'}}>
+                <View style={{flex: 1}}>
+                  <MyButton
+                    title="Hủy"
+                    style={{backgroundColor: Color.redOrange}}
+                    onPress={() => {
+                      setEditable(!editable);
+                      Keyboard.dismiss();
+                    }}
+                  />
+                </View>
+                <View style={{flex: 1}}>
+                  <MyButton
+                    title="Cập nhật"
+                    style={{backgroundColor: Color.seaGreen}}
+                    onPress={() => {
+                      updateUser();
+                    }}
+                  />
+                </View>
               </View>
             </View>
           )}
@@ -239,7 +295,7 @@ function PropSettingDetailsScreen({navigation, route}) {
   );
 }
 
-export default PropSettingDetailsScreen;
+export default UserSettingDetailsScreen;
 
 const styles = StyleSheet.create({
   pageTitle: {

@@ -22,31 +22,6 @@ const useMountEffect = (fun) => React.useEffect(fun, []);
 
 function App() {
   useMountEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'INSERT INTO user_tbl (user_id, tai_khoan, mat_khau, power, ho_ten, sdt, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [
-          1,
-          'admin',
-          'admin',
-          0,
-          'Nguyễn Trường Minh',
-          '0338658656',
-          'Nam',
-          22,
-          '',
-          'Sịp đẹp trai vl',
-        ],
-        (tx, results) => {
-          if (results.rowsAffected > 0) {
-            console.log('Tài khoản admin: admin, Mật khẩu admin: admin');
-          } else alert('Lỗi');
-        },
-      );
-    });
-  });
-
-  useMountEffect(() => {
     db.transaction(function (tx) {
       tx.executeSql(
         "SELECT name FROM sqlite_master WHERE type='table' AND name='bds_tbl'",
@@ -91,6 +66,32 @@ function App() {
       });
     });
   });
+  
+  useMountEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'INSERT INTO user_tbl (user_id, tai_khoan, mat_khau, power, ho_ten, sdt, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          1,
+          'admin',
+          'admin',
+          0,
+          'Nguyễn Trường Minh',
+          '0338658656',
+          'Nam',
+          22,
+          '',
+          'Sịp đẹp trai vl',
+        ],
+        (tx, results) => {
+          if (results.rowsAffected > 0) {
+            console.log('Tài khoản admin: admin, Mật khẩu admin: admin');
+          } else alert('Lỗi');
+        },
+      );
+    });
+  });
+
   return (
     <NavigationContainer>
       <Stack.Navigator

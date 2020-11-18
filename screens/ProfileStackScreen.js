@@ -39,6 +39,7 @@ function ProfileScreen() {
   let [editable, setEditable] = useState(false);
 
   let chooseImage = () => {
+    setEditable(!editable);
     var options = {
       title: 'Chỉnh ảnh đại diện nào',
       storageOptions: {
@@ -48,7 +49,9 @@ function ProfileScreen() {
     };
     ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        console.log('Đã huỷ bỏ chọn ảnh');
+        // console.log('Đã huỷ bỏ chọn ảnh');
+        setEditable(false);
+        console.log('Hủy chỉnh sửa ảnh đại điện');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
@@ -226,15 +229,15 @@ const styles = StyleSheet.create({
     padding: 9,
     color: Color.davyGray,
   },
-  buttonWrapper: {
-    backgroundColor: '#51D8C7',
-    borderWidth: 0,
-    color: '#FFFFFF',
-    borderColor: '#000',
-    height: 40,
-    alignItems: 'center',
-    borderRadius: 5,
-  },
+  // buttonWrapper: {
+  //   backgroundColor: '#51D8C7',
+  //   borderWidth: 0,
+  //   color: '#FFFFFF',
+  //   borderColor: '#000',
+  //   height: 40,
+  //   alignItems: 'center',
+  //   borderRadius: 5,
+  // },
   buttonBackgroundColor: {
     backgroundColor: '#e6fff9',
     paddingHorizontal: 10,

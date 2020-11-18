@@ -65,8 +65,11 @@ export default function NewProp({navigation}) {
     diachi || dientich || huong || giathamdinh || ghichu;
 
   return (
-    <SafeAreaView style={{flex: 1, height: '100%'}}>
-      <View style={{flex: 1, backgroundColor: 'white', height: '100%'}}>
+    <KeyboardAvoidingView
+      enabled
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      style={styles.flexGrowOne}>
+      <ScrollView bounces={false}>
         <Text style={styles.pageTitle}>Tài sản muốn bán</Text>
         <MyTextInput
           placeHolder="Địa chỉ"
@@ -108,7 +111,9 @@ export default function NewProp({navigation}) {
           multiline={true}
           numberOfLines={4}
         />
-        <View style={{flexDirection: 'row', flex: 1}}>
+      </ScrollView>
+      <View style={styles.buttonBackgroundColor}>
+        <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1}}>
             <MyButton
               title="Hủy"
@@ -146,7 +151,7 @@ export default function NewProp({navigation}) {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -175,5 +180,14 @@ const styles = StyleSheet.create({
     margin: 10,
     borderColor: '#909090',
     borderWidth: 3,
+  },
+  buttonBackgroundColor: {
+    backgroundColor: '#e6fff9',
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+    paddingTop: 10,
+  },
+  flexGrowOne: {
+    flexGrow: 1,
   },
 });
