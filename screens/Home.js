@@ -104,6 +104,7 @@ export default function Home({navigation}) {
                   })}
                   borderWidth={0}
                   item={item}
+                  navigation={navigation}
                 />
               )}
             />

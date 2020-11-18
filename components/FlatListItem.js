@@ -45,9 +45,17 @@ function FlatListItemPropSetting({
     </TouchableOpacity>
   );
 }
-function FlatListItemProp({backgroundColor, borderWidth, item}) {
+function FlatListItemProp({navigation, backgroundColor, borderWidth, item}) {
   return (
-    <TouchableOpacity activeOpacity={0.5}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => {
+        let id = item['bds_id'];
+        console.log('bds_id: ' + id);
+        navigation.navigate('PropDetail', {
+          ID: id,
+        });
+      }}>
       {/* <View style={styles.container}> */}
       <View
         style={[

@@ -245,32 +245,31 @@ function UserSettingDetailsScreen({navigation, route}) {
           )}
           {editable && (
             <View>
+              {power == 1 &&
               <MyButton
                 title="Thăng cấp làm quản trị viên"
                 onPress={() => {
-                  setPower('0');
                   Alert.alert(
-                    'Bạn đã thăng cấp cho người dùng này làm quản trị viên!',
+                    'Bạn có chắc muốn thăng cấp thành viên này?',
+                    'Thành viên được thăng cấp sẽ có quyền như quản trị viên',
                     [
                       {
-                        text: 'Sai rồi, quay đầu là bờ',
-                        onPress: () => {
-                          setPower(1);
-                        },
+                        text: 'Không muốn',
+                        onPress: () => {},
                       },
                       {
-                        text: 'Ổn',
-                        onPress: () => {},
+                        text: 'Thăng cấp luôn',
+                        onPress: () => setPower('0'),
                       },
                     ],
                   );
                 }}
-              />
+              />}
               <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
                   <MyButton
                     title="Hủy"
-                    style={{backgroundColor: Color.redOrange}}
+                    style={{backgroundColor: Color.redOrange}} 
                     onPress={() => {
                       setEditable(!editable);
                       Keyboard.dismiss();

@@ -104,7 +104,7 @@ export default function NewProp({navigation}) {
           }}
         />
         <MyTextInput
-          placeHolder="Giới thiệu"
+          placeHolder="Mô tả"
           value={ghichu}
           onChangeText={(val) => setGhichu(val)}
           style={styles.textArea}
