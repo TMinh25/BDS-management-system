@@ -4,7 +4,7 @@
     @react-navigation/native
     @react-navigation/stack
     react-native-animatable
-    // react-native-fontawesome
+    react-native-fontawesome
     react-native-gesture-handler
     react-native-image-picker
     react-native-paper
@@ -14,4 +14,4 @@
     react-native-screens
     react-native-sqlite-storage
     react-native-tab-view
-    // react-native-vector-icons
+    react-native-vector-icons
