@@ -2,6 +2,8 @@
 
 Ứng dụng được lập trình đơn giản để phục vụ báo cáo bài tập lớn môn **_Lập trình thiết bị di động_**
 
+Deadline 10 ngày =)))
+
 ### Để chạy project
 
 1. Mở command line trong folder chứa Project
