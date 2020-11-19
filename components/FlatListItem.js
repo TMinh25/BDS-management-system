@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Color} from './Color';
-
+import PropDetail from '../screens/PropDetail';
 function FlatListItemPropSetting({
   backgroundColor,
   borderWidth,
@@ -51,7 +51,7 @@ function FlatListItemProp({navigation, backgroundColor, borderWidth, item}) {
       activeOpacity={0.5}
       onPress={() => {
         let id = item['bds_id'];
-        console.log('bds_id: ' + id);
+        console.log('id: ' + id);
         navigation.navigate('PropDetail', {
           ID: id,
         });

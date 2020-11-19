@@ -12,6 +12,7 @@ import {
 import SQLite from 'react-native-sqlite-storage';
 
 // IMPORT COMPONENTS
+import FAB from '../components/FloatingActionButton';
 import {FlatListItemPropSetting} from '../components/FlatListItem';
 import {Color} from '../components/Color';
 
@@ -54,7 +55,7 @@ function PropSettingScreen({navigation}) {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.pageTitle}>Tài sản bạn đang rao bán</Text>
+        {/* <Text style={styles.pageTitle}>Tài sản bạn đang rao bán</Text> */}
         {flatListData.length === 0 ? (
           <View
             style={[styles.container, {marginTop: global.dimensionHeight / 2}]}>
@@ -91,6 +92,13 @@ function PropSettingScreen({navigation}) {
           />
         )}
       </SafeAreaView>
+      <FAB
+        title="+"
+        style={{backgroundColor: Color.seaGreen, margin: 20}}
+        onPress={() => {
+          navigation.navigate('NewProp');
+        }}
+      />
     </>
   );
 }

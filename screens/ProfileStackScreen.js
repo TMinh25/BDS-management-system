@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
 import {
   View,
-  Text,
-  SafeAreaView,
   Image,
   StyleSheet,
-  Dimensions,
-  TextInput,
   Keyboard,
   Alert,
   TouchableOpacity,
+  Platform,
   KeyboardAvoidingView,
 } from 'react-native';
 import Header from '@react-navigation/stack';
@@ -20,6 +17,7 @@ import ImagePicker from 'react-native-image-picker';
 // IMPORT COMPONENTS
 import {Color} from '../components/Color';
 import MyButton from '../components/MyButton';
+import MyTextInput from '../components/MyTextInput';
 
 // IMPORT SCREENS
 import SignInScreen from './SignInScreen';
@@ -121,7 +119,7 @@ function ProfileScreen() {
         <View
           style={styles.textInputWrapper}
           pointerEvents={editable ? 'auto' : 'none'}>
-          <TextInput
+          <MyTextInput
             style={styles.textInput}
             value={hoten}
             placeholder="Họ tên"
@@ -129,7 +127,7 @@ function ProfileScreen() {
               setHoten(val);
             }}
           />
-          <TextInput
+          <MyTextInput
             style={styles.textInput}
             placeholder="Số điện thoại"
             value={sdt.toString()}
@@ -138,7 +136,7 @@ function ProfileScreen() {
               setSdt(val);
             }}
           />
-          <TextInput
+          <MyTextInput
             style={styles.textInput}
             placeholder="Tuổi"
             value={tuoi.toString()}
@@ -147,7 +145,7 @@ function ProfileScreen() {
               setTuoi(val);
             }}
           />
-          <TextInput
+          <MyTextInput
             style={styles.textInput}
             placeholder="Giới tính"
             value={gioitinh}
@@ -155,7 +153,7 @@ function ProfileScreen() {
               setGioitinh(val);
             }}
           />
-          <TextInput
+          <MyTextInput
             style={styles.textInput}
             value={ghichu}
             placeholder="Tiểu sử"

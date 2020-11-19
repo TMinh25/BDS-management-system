@@ -10,7 +10,7 @@ import {Color} from '../components/Color';
 import UserSettingScreen from './UserSettingScreen';
 import UserSettingDetailsScreen from './UserSettingDetailsScreen';
 import PropSettingScreen from './PropSettingScreen';
-import PropSettingDetailsScreen from './PropSettingDetailsScreen'
+import PropSettingDetailsScreen from './PropSettingDetailsScreen';
 
 function SignOutFunction({navigation}) {
   return (
@@ -112,12 +112,12 @@ const SettingStackScreen = ({navigation}) => (
     <SettingStack.Screen
       name="PropSetting"
       component={PropSettingScreen}
-      options={{title: 'Quản lý tài sản'}}
+      options={{title: 'Quản lý tài sản của bạn'}}
     />
     <SettingStack.Screen
       name="PropDetailSetting"
       component={PropSettingDetailsScreen}
-      options={{title: 'Quản lý tài sản'}}
+      options={{title: 'Quản lý tài sản của bạn'}}
     />
   </SettingStack.Navigator>
 );

@@ -10,6 +10,7 @@ import {
   ScrollView,
   Alert,
   Keyboard,
+  Platform,
 } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
@@ -39,6 +40,7 @@ function PropSettingDetailsScreen({navigation, route}) {
 
   React.useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prop['bds_id']]);
 
   function loadData() {

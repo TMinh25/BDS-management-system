@@ -1,20 +1,18 @@
 import React, {useState} from 'react';
 import {
   View,
-  Text,
-  SafeAreaView,
   StyleSheet,
-  FlatList,
-  TextInput,
   KeyboardAvoidingView,
   ScrollView,
   Alert,
   Keyboard,
+  Platform,
 } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
 
 // IMPORT COMPONENTS
 import MyButton from '../components/MyButton';
+import MyTextInput from '../components/MyTextInput';
 import {Color} from '../components/Color';
 
 const db = SQLite.openDatabase({name: 'BDSonline.db'});
@@ -48,6 +46,7 @@ function UserSettingDetailsScreen({navigation, route}) {
 
   React.useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user['user_id']]);
 
   function loadData() {
@@ -148,16 +147,14 @@ function UserSettingDetailsScreen({navigation, route}) {
           <View
             style={styles.textInputWrapper}
             pointerEvents={editable ? 'auto' : 'none'}>
-            <TextInput
-              style={styles.textInput}
+            <MyTextInput
               value={taikhoan}
               placeholder="Tài khoản"
               onChangeText={(val) => {
                 setTaikhoan(val);
               }}
             />
-            <TextInput
-              style={styles.textInput}
+            <MyTextInput
               placeholder="Mật khẩu"
               value={matkhau}
               keyboardType="numeric"
@@ -165,16 +162,14 @@ function UserSettingDetailsScreen({navigation, route}) {
                 setMatkhau(val);
               }}
             />
-            <TextInput
-              style={styles.textInput}
+            <MyTextInput
               placeholder="Họ tên"
               value={hoten}
               onChangeText={(val) => {
                 setHoten(val);
               }}
             />
-            <TextInput
-              style={styles.textInput}
+            <MyTextInput
               value={sdt}
               placeholder="Số điện thoại"
               keyboardType="phone-pad"
@@ -182,16 +177,14 @@ function UserSettingDetailsScreen({navigation, route}) {
                 setSdt(val);
               }}
             />
-            <TextInput
-              style={styles.textInput}
+            <MyTextInput
               value={gioitinh}
               placeholder="Giới tính"
               onChangeText={(val) => {
                 setGioitinh(val);
               }}
             />
-            <TextInput
-              style={styles.textInput}
+            <MyTextInput
               value={tuoi}
               placeholder="Tuổi"
               keyboardType="phone-pad"
@@ -199,8 +192,7 @@ function UserSettingDetailsScreen({navigation, route}) {
                 setTuoi(val);
               }}
             />
-            <TextInput
-              style={styles.textInput}
+            <MyTextInput
               value={ghichu}
               placeholder="Tiểu sử"
               keyboardType="phone-pad"
@@ -245,31 +237,32 @@ function UserSettingDetailsScreen({navigation, route}) {
           )}
           {editable && (
             <View>
-              {power == 1 &&
-              <MyButton
-                title="Thăng cấp làm quản trị viên"
-                onPress={() => {
-                  Alert.alert(
-                    'Bạn có chắc muốn thăng cấp thành viên này?',
-                    'Thành viên được thăng cấp sẽ có quyền như quản trị viên',
-                    [
-                      {
-                        text: 'Không muốn',
-                        onPress: () => {},
-                      },
-                      {
-                        text: 'Thăng cấp luôn',
-                        onPress: () => setPower('0'),
-                      },
-                    ],
-                  );
-                }}
-              />}
+              {power == 1 && (
+                <MyButton
+                  title="Thăng cấp làm quản trị viên"
+                  onPress={() => {
+                    Alert.alert(
+                      'Bạn có chắc muốn thăng cấp thành viên này?',
+                      'Thành viên được thăng cấp sẽ có quyền như quản trị viên',
+                      [
+                        {
+                          text: 'Không muốn',
+                          onPress: () => {},
+                        },
+                        {
+                          text: 'Thăng cấp luôn',
+                          onPress: () => setPower('0'),
+                        },
+                      ],
+                    );
+                  }}
+                />
+              )}
               <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
                   <MyButton
                     title="Hủy"
-                    style={{backgroundColor: Color.redOrange}} 
+                    style={{backgroundColor: Color.redOrange}}
                     onPress={() => {
                       setEditable(!editable);
                       Keyboard.dismiss();

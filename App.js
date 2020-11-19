@@ -60,14 +60,6 @@ function App() {
       );
     });
 
-    db.transaction(function (tx) {
-      tx.executeSql('SELECT * FROM user_tbl', [], function (tx, results) {
-        console.log('Số tài khoản: ' + results.rows.length);
-      });
-    });
-  });
-  
-  useMountEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO user_tbl (user_id, tai_khoan, mat_khau, power, ho_ten, sdt, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -89,6 +81,12 @@ function App() {
           } else alert('Lỗi');
         },
       );
+    });
+
+    db.transaction(function (tx) {
+      tx.executeSql('SELECT * FROM user_tbl', [], function (tx, results) {
+        console.log('Số tài khoản: ' + results.rows.length);
+      });
     });
   });
 

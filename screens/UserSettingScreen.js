@@ -55,7 +55,7 @@ function UserSettingScreen({navigation}) {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Text style={styles.pageTitle}>Quản lý người dùng</Text>
+        {/* <Text style={styles.pageTitle}>Quản lý người dùng</Text> */}
         {flatListData.length === 0 ? (
           <View
             style={[styles.container, {marginTop: global.dimensionHeight / 2}]}>
@@ -90,7 +90,9 @@ function UserSettingScreen({navigation}) {
             }
             data={flatListData}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => <FlatListItemUser navigation={navigation} item={item} />}
+            renderItem={({item}) => (
+              <FlatListItemUser navigation={navigation} item={item} />
+            )}
           />
         )}
       </SafeAreaView>
