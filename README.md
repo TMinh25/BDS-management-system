@@ -7,6 +7,7 @@ Deadline 9 ngày =)))
 ### Tài liệu Báo cáo
 
 folder _Tài liệu Báo cáo_ chứa bản mềm để báo cáo như file _Báo cáo bài tập lớn - lTTBDĐ_ và _Thuyết minh - Lập trình di động_.
+
 Trong _Thuyết minh - Lập trình di động_ có bản phân công công việc.
 
 ### Để chạy project
