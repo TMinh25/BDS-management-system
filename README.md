@@ -12,14 +12,15 @@ Trong '_Thuyết minh - Lập trình di động_' có bản phân công công vi
 
 ### Để chạy project
 
-1. Mở command line trong folder chứa Project
-2. Cài đặt thư viện cần dùng cho project
+1. Clone project về bằng lệnh `git clone https://github.com/TMinh25/BDS-management-system.git` hoặc _**download Zip**_ trong nút tải code
+2. Mở command line trong folder chứa Project
+3. Cài đặt thư viện cần dùng cho project
   
-    2.1. Chạy lệnh `npm install` hoặc `yarn` nếu chạy giả lập trên Android
+    3.1. Chạy lệnh `npm install` hoặc `yarn` nếu chạy giả lập trên Android
   
-    2.2. Chạy lệnh `cd ios && pod install && cd ..` nếu chạy giả lập trên iOS
+    3.2. Chạy lệnh `cd ios && pod install && cd ..` nếu chạy giả lập trên iOS
   
-3. Build project: `react-native run-android` hoặc `react-native run-ios`
+4. Build project: `react-native run-android` hoặc `react-native run-ios`
 
 ### KHMT K4 | Đại học Hạ Long
 
