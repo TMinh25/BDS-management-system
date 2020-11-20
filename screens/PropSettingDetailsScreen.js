@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   StyleSheet,
   FlatList,
-  TextInput,
   KeyboardAvoidingView,
   ScrollView,
   Alert,
@@ -15,6 +14,7 @@ import {
 import SQLite from 'react-native-sqlite-storage';
 
 // IMPORT COMPONENTS
+import MyTextInput from '../components/MyTextInput';
 import MyButton from '../components/MyButton';
 import {Color} from '../components/Color';
 
@@ -135,7 +135,7 @@ function PropSettingDetailsScreen({navigation, route}) {
           <View
             style={styles.textInputWrapper}
             pointerEvents={editable ? 'auto' : 'none'}>
-            <TextInput
+            <MyTextInput
               style={styles.textInput}
               value={diachi}
               placeholder="Địa chỉ"
@@ -143,7 +143,7 @@ function PropSettingDetailsScreen({navigation, route}) {
                 setDiachi(val);
               }}
             />
-            <TextInput
+            <MyTextInput
               style={styles.textInput}
               placeholder="Diện tích"
               value={dientich}
@@ -152,7 +152,7 @@ function PropSettingDetailsScreen({navigation, route}) {
                 setDientich(val);
               }}
             />
-            <TextInput
+            <MyTextInput
               style={styles.textInput}
               placeholder="Hướng"
               value={huong}
@@ -160,7 +160,7 @@ function PropSettingDetailsScreen({navigation, route}) {
                 setHuong(val);
               }}
             />
-            <TextInput
+            <MyTextInput
               style={styles.textInput}
               placeholder="Giá thẩm định"
               value={giathamdinh}
@@ -169,7 +169,7 @@ function PropSettingDetailsScreen({navigation, route}) {
                 setGiathamdinh(val);
               }}
             />
-            <TextInput
+            <MyTextInput
               style={styles.textInput}
               value={ghichu}
               placeholder="Ghi chú"

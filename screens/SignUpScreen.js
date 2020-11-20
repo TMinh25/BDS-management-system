@@ -51,44 +51,66 @@ const SignUpScreen = ({navigation, isAdmin}) => {
     });
   };
 
+  function isValidUsername() {
+    db.transaction(function (tx) {
+      tx.executeSql(
+        'SELECT * FROM user_tbl WHERE tai_khoan=?',
+        [taikhoan],
+        function (tx, results) {
+          if (results.rows.length === 1) {
+            return false;
+          } else {
+            return true;
+          }
+        },
+      );
+    });
+  }
+
   let isFinishingForm = () => {
     return taikhoan || matkhau || hoten || gioitinh || tuoi || avatar;
   };
 
   let createNewUser = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, sdt, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [
-          taikhoan,
-          matkhau,
-          isAdmin ? 0 : 1,
-          hoten,
-          sdt,
-          gioitinh,
-          tuoi,
-          avatar,
-          ghichu,
-        ],
-        (tx, results) => {
-          if (results.rowsAffected > 0) {
-            Alert.alert(
-              'Thành công rồi!',
-              'Bạn có thể khám phá rồi đó',
-              [
-                {
-                  text: 'OK',
-                  onPress: () => navigation.navigate('SignIn'),
-                },
-              ],
-              {cancelable: false},
-            );
-            console.log('Tài khoản: ' + taikhoan + ', Mật khẩu: ' + matkhau);
-            console.log(hoten, gioitinh, tuoi, ghichu, isAdmin ? 0 : 1);
-          } else alert('Lỗi');
-        },
-      );
-    });
+    if (!isValidUsername()) {
+      Alert.alert('Tên đăng nhập không khả dụng!', 'Bạn hãy nhập lại nào', [
+        {text: 'ok', onPress: () => {}},
+      ]);
+    } else {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'INSERT INTO user_tbl (tai_khoan, mat_khau, power, ho_ten, sdt, gioi_tinh, tuoi, avatar, ghi_chu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [
+            taikhoan,
+            matkhau,
+            isAdmin ? 0 : 1,
+            hoten,
+            sdt,
+            gioitinh,
+            tuoi,
+            avatar,
+            ghichu,
+          ],
+          (tx, results) => {
+            if (results.rowsAffected > 0) {
+              Alert.alert(
+                'Thành công rồi!',
+                'Bạn có thể khám phá rồi đó',
+                [
+                  {
+                    text: 'OK',
+                    onPress: () => navigation.navigate('SignIn'),
+                  },
+                ],
+                {cancelable: false},
+              );
+              console.log('Tài khoản: ' + taikhoan + ', Mật khẩu: ' + matkhau);
+              console.log(hoten, gioitinh, tuoi, ghichu, isAdmin ? 0 : 1);
+            } else alert('Lỗi');
+          },
+        );
+      });
+    }
   };
 
   return (

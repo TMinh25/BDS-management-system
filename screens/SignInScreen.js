@@ -86,6 +86,7 @@ function SignInScreen({navigation}) {
           />
           <MyTextInput
             placeHolder="Mật khẩu"
+            secureTextEntry={true}
             style={{marginBottom: 20}}
             onChangeText={(val) => {
               setMatkhau(val);

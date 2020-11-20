@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TextInput, Text, StyleSheet} from 'react-native';
-
+import {Color} from './Color';
 class MyTextInput extends React.Component {
   constructor(props) {
     super(props);
@@ -10,9 +10,10 @@ class MyTextInput extends React.Component {
       <View style={styles.textInputContainer}>
         <TextInput
           style={[styles.textInput, this.props.style]}
+          secureTextEntry={this.props.secureTextEntry}
           underlineColorAndroid="transparent"
           placeholder={this.props.placeHolder}
-          placeholderTextColor="gray"
+          placeholderTextColor={Color.davyGray}
           keyboardType={this.props.keyboardType}
           onChangeText={this.props.onChangeText}
           returnKeyType={this.props.returnKeyType}
